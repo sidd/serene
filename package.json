@@ -1,0 +1,16 @@
+{
+  "name": "serene",
+  "version": "0.0.0",
+  "description": "(WIP) minimal & modular front-end for bittorrent + webtorrent daemons",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "sidd/serene",
+  "keywords": [],
+  "author": "Sidd Sridharan <sidd@sidd.com> (http://sidd.com)",
+  "license": "ISC",
+  "devDependencies": {
+    "standard": "^5.4.1"
+  }
+}
