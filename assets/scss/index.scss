@@ -7,9 +7,10 @@ a, a:link, a:visited, a:focus, a:hover {
 
 body {
   font-family: Lato, sans-serif;
+  letter-spacing: 0.1rem;
 }
 
-.app {
+.app__body {
   display: flex;
   height: 100vh;
 }
@@ -24,10 +25,38 @@ body {
   }
 }
 
+.header {
+  display: flex;
+  height: 50px;
+  background: #355585;
+  color: white;
+}
+
+.tabs {
+  display: flex;
+
+  &__tab {
+    display: flex;
+    border-right: 1px solid #526E9D;
+    padding: 0 10px;
+    &__text {
+      font-weight: 200;
+      margin: auto;
+    }
+    &__meta {
+      position: relative;
+      font-size: 10px;
+      top: -2px;
+    }
+    &--active {
+      background: #526E9D;
+    }
+  }
+}
+
 .sidebar {
   background: #355585;
   color: #fff;
-  margin-right: 10px;
   &__list {
     display: flex;
     flex-direction: column;
@@ -43,11 +72,12 @@ body {
 }
 
 .torrent-list {
+  table-layout: fixed;
   width: 100%;
   &__container {
     flex: 5 1 500px;
   }
-  &__item {
+  &__item, &__head {
     border-bottom: 1px solid #efefef;
     height: 50px;
     line-height: 50px;
@@ -56,12 +86,24 @@ body {
       background: #f8f8f8;
     }
   }
+  &__head {
+    border-bottom: 1px solid #eee;
+  }
+
   &__data {
     color: #8f8f8f;
+    padding: 0 10px;
+    text-align: center;
 
     &--title {
+      text-align: left;
+      padding-left: 20px;
       color: #444;
       font-weight: bold;
+    }
+
+    &--completion {
+      width: 150px;
     }
   }
 }
@@ -69,8 +111,9 @@ body {
 .torrent-info {
   margin: auto;
   &__container {
+    border-left: 1px solid #eee;
+    background: #f8f8f8;
     flex: 1 0.1 auto;
-    margin: auto;
   }
   &__data, &__key {
     display: block;
@@ -89,5 +132,24 @@ body {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+  }
+}
+
+.progress-bar {
+  line-height: initial;
+  background: #efefef;
+  border-radius: 10px;
+  height: 10px;
+  width: 100%;
+  overflow: hidden;
+  &__container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  &__progress {
+    background: #355585;
+    height: 10px;
+    width: 0px;
   }
 }

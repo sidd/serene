@@ -7,6 +7,12 @@ export default React.createClass({
       <section className='torrent-list__container app__component app__component--list'>
         <table className='torrent-list'>
           <thead>
+            <tr className='torrent-list__head'>
+              <th>Title</th>
+              <th>Progress</th>
+              <th>Seeders</th>
+              <th>Peers</th>
+            </tr>
           </thead>
           <tbody>
             <Torrent active={true} />
