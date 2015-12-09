@@ -1,25 +1,15 @@
 import React from 'react'
 import { render } from 'react-dom'
-import Sidebar from './components/Sidebar'
-import TorrentList from './components/TorrentList'
-import TorrentInfo from './components/TorrentInfo'
-import Header from './components/Header'
+import { Provider } from 'react-redux'
+import store from './store'
+import AppContainer from './containers/AppContainer'
 
 require('../scss/index.scss')
 
-const App = React.createClass({
-  render () {
-    return (
-      <div className='app'>
-        <Header />
-        <div className='app__body'>
-          <Sidebar />
-          <TorrentList />
-          <TorrentInfo />
-        </div>
-      </div>
-    )
-  }
-})
+render(
+  <Provider store={store}>
+    <AppContainer />
+  </Provider>,
+  document.getElementById('mount')
+)
 
-render(<App />, document.getElementById('mount'))
