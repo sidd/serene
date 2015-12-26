@@ -3,9 +3,11 @@ import Torrent from './Torrent'
 
 export default React.createClass({
   propTypes: {
-    torrents: React.PropTypes.array.isRequired
+    torrents: React.PropTypes.object.isRequired
   },
   render () {
+    const torrents = this.props.torrents.items
+    const torrentItems = Object.keys(torrents).map(i => torrents[i])
     return (
       <section className='torrent-list__container app__component app__component--list'>
         <table className='torrent-list'>
@@ -18,7 +20,9 @@ export default React.createClass({
             </tr>
           </thead>
           <tbody>
-            {this.props.torrents.items.map(t => <Torrent torrent={t} key={t.id} active={true} />)}
+            {torrentItems.map(
+              (t, i) => <Torrent torrent={t} key={t.id} active={i === 0} />
+            )}
           </tbody>
         </table>
       </section>

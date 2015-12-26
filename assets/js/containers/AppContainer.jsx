@@ -1,31 +1,39 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import Sidebar from '../components/Sidebar'
-import TorrentList from '../components/TorrentList'
-import TorrentInfo from '../components/TorrentInfo'
-import Header from '../components/Header'
-import init from '../actions/init'
+import HeaderContainer from './HeaderContainer'
+import BodyContainer from './BodyContainer'
+import { setController, getControllers } from '../actions/controller'
 
 const AppContainer = React.createClass({
   propTypes: {
-    dispatch: React.PropTypes.func.isRequired,
-    torrents: React.PropTypes.array.isRequired
+    dispatch: PropTypes.func.isRequired,
+    controllers: PropTypes.object
   },
+
   componentWillMount () {
-    this.props.dispatch(init())
+    const { dispatch } = this.props
+    dispatch(getControllers())
+    dispatch(setController('rtorrent'))
   },
+
   render () {
+    const { items: controllers, active } = this.props.controllers
+    const activeController = Object.keys(controllers).length
+      ? controllers[active]
+      : undefined
+
     return (
       <div className='app'>
-        <Header />
-        <div className='app__body'>
-          <Sidebar />
-          <TorrentList torrents={this.props.torrents} dispatch={this.props.dispatch} />
-          <TorrentInfo />
-        </div>
+        {activeController && <HeaderContainer controller={activeController} />}
+        {activeController && <BodyContainer controller={activeController} />}
       </div>
     )
   }
 })
 
-export default connect(state => state)(AppContainer)
+function mapStateToProps (state) {
+  const { controllers } = state
+  return { controllers }
+}
+
+export default connect(mapStateToProps)(AppContainer)

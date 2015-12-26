@@ -8,7 +8,9 @@ export default React.createClass({
     return (
       <div className='progress-bar__container'>
         <div className='progress-bar'>
-          <div className='progress-bar__progress' style={{ width: this.props.progress }}/>
+          <div className='progress-bar__progress' style={{ width: this.props.progress }}>
+          </div>
+          <div className='progress-bar__text'>{this.props.progress}</div>
         </div>
       </div>
     )
