@@ -1,27 +1,40 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import Torrent from './Torrent'
 
 export default React.createClass({
   propTypes: {
-    torrents: React.PropTypes.object.isRequired
+    torrents: PropTypes.array.isRequired,
+    unsetTorrent: PropTypes.func.isRequired,
+    setTorrent: PropTypes.func.isRequired,
+    selectedTorrent: PropTypes.object
   },
   render () {
-    const torrents = this.props.torrents.items
-    const torrentItems = Object.keys(torrents).map(i => torrents[i])
+    const { unsetTorrent, setTorrent, torrents, selectedTorrent } = this.props
+
     return (
-      <section className='torrent-list__container app__component app__component--list'>
+      <section className='torrent-list__container app__component app__component--list' onClick={unsetTorrent}>
         <table className='torrent-list'>
           <thead>
             <tr className='torrent-list__head'>
               <th>Title</th>
               <th>Progress</th>
-              <th>Seeders</th>
+              <th>Size</th>
+              <th>DL</th>
+              <th>UL</th>
+              <th>Seeds</th>
               <th>Peers</th>
+              <th>ETA</th>
+              <th>Ratio</th>
             </tr>
           </thead>
           <tbody>
-            {torrentItems.map(
-              (t, i) => <Torrent torrent={t} key={t.id} active={i === 0} />
+            {torrents.map(
+              (t, i) =>
+                <Torrent
+                  torrent={t}
+                  key={t.infohash}
+                  active={selectedTorrent && selectedTorrent.infohash === t.infohash}
+                  setTorrent={setTorrent} />
             )}
           </tbody>
         </table>

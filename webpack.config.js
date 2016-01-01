@@ -1,4 +1,5 @@
 var webpack = require('webpack')
+var path = require('path')
 
 module.exports = {
   entry: [
@@ -13,13 +14,18 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.jsx$/, loader: 'react-hot!babel', exclude: /node_modules/ },
+      { test: /\.jsx|\.js$/, loader: 'react-hot!babel', exclude: /node_modules/ },
       { test: /\.scss$/, loader: 'style!css!sass' },
-      { test: /\.(woff|woff2|ttf|eot|svg|png)(\?v=[0-9|\.]+)*$/, loader: 'url-loader?limit=8192' }
+      { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff' },
+      { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader' }
     ]
   },
   resolve: {
-    extensions: ['', '.jsx', '.js']
+    extensions: ['', '.jsx', '.js'],
+    fallback: path.join(__dirname, 'node_modules')
+  },
+  resolveLoader: {
+    fallback: path.join(__dirname, 'node_modules')
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
@@ -28,6 +34,7 @@ module.exports = {
     })
   ],
   devServer: {
+    devtool: 'eval-source-map',
     hot: true,
     historyApiFallback: true,
     port: 7000,
