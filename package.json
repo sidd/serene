@@ -1,8 +1,7 @@
 {
   "name": "serene",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "(WIP) minimal & modular front-end for bittorrent + webtorrent daemons",
-  "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server -d",
     "test": "echo \"Error: no test specified\" && exit 1",
