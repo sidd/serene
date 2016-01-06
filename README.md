@@ -2,9 +2,9 @@
 
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
-Provides a modular and extensible front-end for BitTorrent and WebTorrent daemons. Serene will exist as a web, desktop, and mobile interface.
+Provides a modular and extensible front-end for BitTorrent and WebTorrent daemons. Serene will exist as a web, desktop, and mobile interface. **You don't need node to get started!**
 
-Currently, providers assume that the daemon exists on a server which allows CORS requests. It may be worth allowing JSON-P requests to reduce configuration headaches.
+Currently, providers assume that the daemon exists on a server which allows [CORS](http://www.html5rocks.com/en/tutorials/cors/) requests. Preflight requests also need to be handled. It may be worth allowing [JSON-P](http://json-p.org/) requests to reduce configuration headaches.
 
 **This is pre-pre-alpha software under heavy development. Use only if you like tinkering :). Feel free to submit a PR, as nothing is set in stone.**
 
