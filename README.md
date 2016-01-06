@@ -6,7 +6,15 @@ Provides a modular and extensible front-end for BitTorrent and WebTorrent daemon
 
 Currently, providers assume that the daemon exists on a server which allows CORS requests. It may be worth allowing JSON-P requests to reduce configuration headaches.
 
-**Under heavy development. Use only if you like tinkering :). Feel free to submit a PR, as nothing is set in stone.**
+**This is pre-pre-alpha software under heavy development. Use only if you like tinkering :). Feel free to submit a PR, as nothing is set in stone.**
+
+## note on versioning
+
+v0.0.x are pre-pre-alpha (i.e. every version will potentially introduce breaking changes) versions. v0.x.x (where 0.x > 0.0) represents pre-alpha builds, and breaking changes will result in a semver minor bump (0.>>x<<.x). At some point, v0.x.x builds will be alpha builds.
+
+Beta builds will be clearly tagged as (X.x.x-betaX).
+
+Pre-pre-alpha, and pre-alpha builds are not advised for use on a live server. Nothing can really go wrong, it's just that the upgrade path will likely be painful.
 
 ## under the hood
 
