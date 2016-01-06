@@ -1,12 +1,19 @@
 var path = require('path')
 var webpack = require('webpack')
 
-module.exports = {
-  entry: [
+var entry = [
+  './assets/js/index.jsx'
+]
+
+if (process.env.NODE_ENV !== 'production') {
+  entry = [
     'webpack-dev-server/client?http://0.0.0.0:7000',
-    'webpack/hot/only-dev-server',
-    './assets/js/index.jsx'
-  ],
+    'webpack/hot/only-dev-server'
+  ].concat(entry)
+}
+
+module.exports = {
+  entry: entry,
   output: {
     path: './public/dist',
     publicPath: '/dist/',
