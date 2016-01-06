@@ -62,7 +62,7 @@ Just run `npm start`, and you're off! This starts a `webpack-dev-server` instanc
 ## short-term roadmap (in ideal chronological order)
 
 - [ ] Decouple from rTorrent
-- [ ] Connect via multiple providers
+- [x] Connect via multiple providers
 - [ ] Establish plugin architecture
 - [ ] Utilize [Notifications API](https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API) for events (i.e. torrent completion, hitting ratio 1)
 - [ ] Create a companion lightweight server, which can sit in front of a torrent daemon. This companion will pipe data to Serene client via WebSockets. This would have the added benefits of having less transactional overhead, being able to configure the torrent daemon itself, and allowing for persistence (and useful things like ACL).
