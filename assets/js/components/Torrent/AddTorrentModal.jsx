@@ -28,15 +28,8 @@ const AddTorrentModal = React.createClass({
    */
   handleSubmit (ev) {
     ev.preventDefault()
-
-    var reader = new window.FileReader()
-    reader.onload = upload => {
-      const result = upload.target.result
-      this.props.dispatch(addTorrent(result.slice(37)))
-      this.props.unsetModal()
-    }
-
-    reader.readAsDataURL(ev.target[0].files[0])
+    this.props.dispatch(addTorrent(ev.target[0].files))
+    this.props.unsetModal()
   },
 
   /**

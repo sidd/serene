@@ -53,7 +53,6 @@ export function removeTorrent (infohash) {
 }
 
 export function getTorrents (isRepeating, connection) {
-  console.log(connection)
   return (dispatch, getState) => {
     const state = getState()
     if (connection !== connectionsSelectedSelector(state)) {
