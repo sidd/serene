@@ -46,7 +46,7 @@ const CredentialsModal = React.createClass({
           <div className='input__row'>
             <div className='input__group input__group--full'>
               <label className='input__label'>Provider</label>
-              <select className='input input--select' name='provider' onChange={this.simpleFormMixinHandleChange} value='rtorrent'>
+              <select className='input input--select' name='provider' onChange={this.simpleFormMixinHandleChange}>
                 {Object.keys(providers).map(provider =>
                   <option key={provider} value={provider}>{providers[provider].prettyName}</option>
                 )}
