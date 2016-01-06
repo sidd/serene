@@ -1,13 +1,32 @@
-import React from 'react'
-import Header from '../components/Header'
+import Header from 'components/Header/Header'
+import React, { PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { headerSelector } from 'selectors'
+import { selectConnection } from 'actions/ConnectionActions'
 
-export default React.createClass({
+const HeaderContainer = React.createClass({
   propTypes: {
-    controller: React.PropTypes.object
+    controller: PropTypes.object,
+    connections: PropTypes.object,
+    connectionsSelected: PropTypes.string,
+    dispatch: PropTypes.func
   },
+
+  handleConnectionClick (conn) {
+    this.props.dispatch(selectConnection(conn))
+  },
+
   render () {
+    const { connectionsSelected, connections } = this.props
+
     return (
-      <Header />
+      !!connectionsSelected &&
+        <Header
+          connections={connections}
+          connectionsSelected={connectionsSelected}
+          handleConnectionClick={this.handleConnectionClick} />
     )
   }
 })
+
+export default connect(headerSelector)(HeaderContainer)

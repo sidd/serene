@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
+import { addTorrent } from 'actions/TorrentActions'
 import { connect } from 'react-redux'
-import { addTorrent } from '../actions/TorrentActions'
 
 const AddTorrentModal = React.createClass({
   propTypes: {
@@ -8,12 +8,24 @@ const AddTorrentModal = React.createClass({
     unsetModal: PropTypes.func.isRequired
   },
 
+  /**
+   * Stores the filename of the currently added file.
+   */
   getInitialState () {
     return {
       filename: null
     }
   },
 
+  /**
+   * Handles torrent upload submission. Utilizes FileReader API,
+   * and makes naive assumptions about the type of file uploaded.
+   *
+   * @param {SyntheticEvent} [ev] event from React onSubmit prop
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/FileReader
+   * @todo Formally check filetype.
+   * @todo Handle multiple torrents simultaneously.
+   */
   handleSubmit (ev) {
     ev.preventDefault()
 
@@ -27,6 +39,13 @@ const AddTorrentModal = React.createClass({
     reader.readAsDataURL(ev.target[0].files[0])
   },
 
+  /**
+   * Updates this component's state with current filename.
+   *
+   * @param {SyntheticEvent} ev event from React onChange prop
+   * @todo use `parse-torrent` to generate more data than the filename.
+   * @see https://www.npmjs.com/package/parse-torrent
+   */
   handleChange (ev) {
     this.setState({
       filename: ev.target.files.length

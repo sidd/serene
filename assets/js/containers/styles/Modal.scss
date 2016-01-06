@@ -1,0 +1,93 @@
+.modal {
+  background: #fff;
+  border: 1px solid #eee;
+  flex: 0 1 25%;
+  position: relative;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  transition: 200ms all;
+  &__container {
+    background: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    transition: 200ms all;
+    opacity: 1;
+
+    &.app-transition-enter, &.app-transition-leave-active {
+      opacity: 0;
+
+      & .modal {
+        transform: scale(0);
+      }
+    }
+    &.app-transition-enter-active {
+      opacity: 1;
+      & .modal {
+        transform: scale(1);
+      }
+    }
+  }
+
+  &__title {
+    background: #efefef;
+    color: #888;
+    letter-spacing: initial;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  &__body {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    min-height: 200px;
+  }
+
+  &__footer {
+    padding: 10px;
+  }
+
+  &--torrent {
+    position: relative;
+        &__filename {
+      position: absolute;
+      text-align: center;
+      width: 100%;
+      top: 100px;
+      transform: translateY(-50%);
+      font-weight: 200;
+      color: #bbb;
+    }
+    &__file {
+      display: block;
+      width: 100%;
+      height: 200px;
+      position: relative;
+      visibility: hidden;
+      &:after {
+        content: '';
+        font-family: 'Lato', sans-serif;
+        position: absolute;
+        outline: 3px dashed #ddd;
+        display: block;
+        width: 100%;
+        visibility: visible;
+        height: 200px;
+        line-height: 200px;
+        font-size: 20px;
+        color: #ccc;
+        top: 0;
+      }
+
+      & + .button {
+        margin-top: 15px;
+        width: 100%;
+      }
+    }
+  }
+}

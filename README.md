@@ -1,14 +1,67 @@
-# serene, an unopinionated front-end for torrent daemons
+# serene
 
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
-Provides a modular and extensible front-end for torrent daemons that can be used across devices and platforms.
+Provides a modular and extensible front-end for BitTorrent and WebTorrent daemons. Serene will exist as a web, desktop, and mobile interface.
 
-**There's not much to see here at the moment. When in a usable state, this addendum will be removed from the README.**
+Currently, providers assume that the daemon exists on a server which allows CORS requests. It may be worth allowing JSON-P requests to reduce configuration headaches.
 
-## on modularity
+**Under heavy development. Use only if you like tinkering :). Feel free to submit a PR, as nothing is set in stone.**
 
-Serene is in a extreme-mega-ultra-not-usable state, so logic for communicating with rTorrent will be in here. This section will be removed once decoupling has occurred.
+## under the hood
+
+Serene utilizes React + Redux, with the eventual goal/dream of using React Native for the mobile client, and Electron for the desktop client.
+
+As it stands currently, **there is only a web client**, and it is very much a work in progress.
+
+The codebase is bundled with Webpack, using Babel to transpile ES2015 to ES5.
+
+## on modularity & api
+
+Serene is in a ~~extreme-~~mega-ultra-unusable state. The codebase is fairly coupled with rTorrent.
+
+Serene's API is also **nowhere near** being finalized, so please keep that in mind when developing provider interfaces.
+
+## providers (completed & in-progress)
+
+Provider interfaces are lightweight adapters that simply implement a [predictable interface](); we'll just call them providers for short. Essentially, they are dialect definitions that will allow Serene to communicate with a variety of BitTorrent / WebTorrent clients.
+
+- [x] [serene-rtorrent](https://github.com/sidd/serene-rtorrent) (still a work in progress, but is functional!)
+- [ ] serene-deluge
+- [ ] serene-webtorrent
+
+## installation
+
+As of now, everything is installed through helper scripts that utilize npm. This makes adding a provider really easy for Node users, but the eventual idea is to create a bundle which offers Serene + node/npm (i.e. as an Electron app), so that anybody can add providers to their Serene instance.
+
+In order to use a provider, we'll use the included npm `run-script`, (crack open [`package.json`](package.json) to see the npm wizardry that goes on):
+
+```
+$ npm run provider:add -- serene-rtorrent # to add a provider
+$ npm run provider:remove -- serene-rtorrent # to remove a provider
+
+$ npm run build # creates a new production webpack bundle
+```
+
+Don't forget the [getopt delimiter `--`](https://docs.npmjs.com/cli/run-script#description)!
+
+Since you're just serving static files, all you need is a static file server (like [ecstatic](https://npmjs.com/package/ecstatic)). You'll want to serve up the `public/` directory.
+
+## developing
+
+Just run `npm start`, and you're off! This starts a `webpack-dev-server` instance in development mode (with the `-d` flag). [`index.jsx`](assets/index.jsx) is a good starting point.
+
+## short-term roadmap (in ideal chronological order)
+
+- [ ] Decouple from rTorrent
+- [ ] Connect via multiple providers
+- [ ] Establish plugin architecture
+- [ ] Utilize [Notifications API](https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API) for events (i.e. torrent completion, hitting ratio 1)
+- [ ] Create a companion lightweight server, which can sit in front of a torrent daemon. This companion will pipe data to Serene client via WebSockets. This would have the added benefits of having less transactional overhead, being able to configure the torrent daemon itself, and allowing for persistence (and useful things like ACL).
+
+One main goal of Serene is to provide a fluid and beautiful user experience out-of-the-box, so that means developing awesome plugins. These will both serve as examples, and also contain useful features that don't need to be bundled in core.
+
+- [ ] Vim keyboard shortcuts (naively implemented basic bindings are in core - should be tossed into a plugin at some point)
 
 ## license
 

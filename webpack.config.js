@@ -1,5 +1,5 @@
-var webpack = require('webpack')
 var path = require('path')
+var webpack = require('webpack')
 
 module.exports = {
   entry: [
@@ -21,7 +21,8 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['', '.jsx', '.js'],
+    extensions: ['', '.jsx', '.js', '.scss'],
+    modulesDirectories: ['assets/js', 'node_modules', 'plugins'],
     fallback: path.join(__dirname, 'node_modules')
   },
   resolveLoader: {

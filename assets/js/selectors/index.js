@@ -1,7 +1,10 @@
 import { createSelector, createStructuredSelector } from 'reselect'
 
-const entitiesControllersSelector = state => state.entities.controllers
-const controllersSelectedSelector = state => state.selectedController
+// const providersSelector = state => state.providers
+// const providersSelectedSelector = state => state.selectedProvider
+
+const connectionsSelector = state => state.connections
+export const connectionsSelectedSelector = state => state.selectedConnection
 
 const entitiesStatsSelector = state => state.entities.stats
 
@@ -23,28 +26,36 @@ export const selectedTorrentSelector = createSelector(
 
 export const bodySelector = createStructuredSelector({
   torrents: visibleTorrentsSelector,
-  selectedTorrent: selectedTorrentSelector
+  selectedTorrent: selectedTorrentSelector,
+  connectionsSelected: connectionsSelectedSelector
 })
 
-export const selectedControllerSelector = createSelector(
-  controllersSelectedSelector,
-  entitiesControllersSelector,
+export const selectedConnectionSelector = createSelector(
+  connectionsSelectedSelector,
+  connectionsSelector,
   (selected, entities) => selected ? entities[selected] : {}
 )
 
 export const modalSelector = state => state.modal
 
+export const statsSelector = createSelector(
+  selectedConnectionSelector,
+  entitiesStatsSelector,
+  (selected, entities) => (selected && selected.nameIdentifier && entities) ? entities[selected.nameIdentifier] : {}
+)
+
 export const appSelector = createStructuredSelector({
   modal: modalSelector,
-  selectedController: selectedControllerSelector
+  selectedConnection: selectedConnectionSelector,
+  selectedTorrent: selectedTorrentSelector,
+  stats: statsSelector
 })
-
-export const statsSelector = createSelector(
-  controllersSelectedSelector,
-  entitiesStatsSelector,
-  (selected, entities) => (selected && entities) ? entities[selected] : {}
-)
 
 export const footerSelector = createStructuredSelector({
   stats: statsSelector
+})
+
+export const headerSelector = createStructuredSelector({
+  connections: connectionsSelector,
+  connectionsSelected: connectionsSelectedSelector
 })

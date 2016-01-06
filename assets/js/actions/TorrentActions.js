@@ -1,30 +1,33 @@
-import { selectedTorrentSelector, selectedControllerSelector } from '../selectors'
+import * as ActionTypes from 'actions'
+import { connectionsSelectedSelector, selectedTorrentSelector, selectedConnectionSelector } from 'selectors'
 
 export function setTorrent (infohash) {
   return (dispatch, getState) => {
     const state = getState()
     dispatch({
-      type: 'TORRENTS_SET',
-      payload: infohash
+      type: ActionTypes.TORRENT_SELECT,
+      payload: {
+        infohash
+      }
     })
     if (selectedTorrentSelector(state).infohash !== infohash) {
-      dispatch(selectedControllerSelector(state).getTorrentDetails(infohash))
+      dispatch(selectedConnectionSelector(state).getTorrentDetails(infohash))
     }
   }
 }
 
 export function unsetTorrent () {
   return {
-    type: 'UNSET_TORRENT'
+    type: ActionTypes.TORRENT_DESELECT
   }
 }
 
 export function addTorrent (torrent) {
   return (dispatch, getState) => {
     const state = getState()
-    dispatch(selectedControllerSelector(state).addTorrent(torrent))
+    dispatch(selectedConnectionSelector(state).addTorrent(torrent))
       .payload.promise.then(
-        () => dispatch(selectedControllerSelector(state).getTorrents())
+        () => dispatch(selectedConnectionSelector(state).getTorrents())
       )
   }
 }
@@ -32,9 +35,9 @@ export function addTorrent (torrent) {
 export function updateTorrentStatus (infohash, status) {
   return (dispatch, getState) => {
     const state = getState()
-    dispatch(selectedControllerSelector(state).updateTorrentStatus(infohash, status))
+    dispatch(selectedConnectionSelector(state).updateTorrentStatus(infohash, status))
       .payload.promise.then(
-        () => dispatch(selectedControllerSelector(state).getTorrents())
+        () => dispatch(selectedConnectionSelector(state).getTorrents())
       )
   }
 }
@@ -42,17 +45,21 @@ export function updateTorrentStatus (infohash, status) {
 export function removeTorrent (infohash) {
   return (dispatch, getState) => {
     const state = getState()
-    dispatch(selectedControllerSelector(state).removeTorrent(infohash))
+    dispatch(selectedConnectionSelector(state).removeTorrent(infohash))
       .payload.promise.then(
-        () => dispatch(selectedControllerSelector(state).getTorrents())
+        () => dispatch(selectedConnectionSelector(state).getTorrents())
       )
   }
 }
 
-export function getTorrents (isRepeating) {
+export function getTorrents (isRepeating, connection) {
+  console.log(connection)
   return (dispatch, getState) => {
     const state = getState()
-    dispatch(selectedControllerSelector(state).getTorrents())
-      .payload.promise.then(() => (isRepeating && setTimeout(() => getTorrents(true)(dispatch, getState), 1000)))
+    if (connection !== connectionsSelectedSelector(state)) {
+      return
+    }
+    dispatch(selectedConnectionSelector(state).getTorrents())
+      .payload.promise.then(() => (isRepeating && setTimeout(() => getTorrents(true, connection)(dispatch, getState), 5000)))
   }
 }

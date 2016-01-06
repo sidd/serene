@@ -1,36 +1,35 @@
+import AddTorrentModal from 'components/Torrent/AddTorrentModal'
 import React, { PropTypes } from 'react'
-import { connect } from 'react-redux'
-import Sidebar from '../components/Sidebar'
-import TorrentList from '../components/TorrentList'
-import TorrentInfo from '../components/TorrentInfo'
-import { buildModal } from '../actions/ModalActions'
-import { unsetTorrent, getTorrents, removeTorrent, updateTorrentStatus, setTorrent } from '../actions/TorrentActions'
-import { isEmpty } from '../utils'
-import AddTorrentModal from '../components/AddTorrentModal'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-import { bodySelector } from '../selectors'
+import Sidebar from 'components/Sidebar/Sidebar'
+import TorrentList from 'components/Torrent/TorrentList'
+import { bodySelector } from 'selectors'
+import { buildModal } from 'actions/ModalActions'
+import { connect } from 'react-redux'
+import { getTorrents } from 'actions/TorrentActions'
+import { promptConnection } from 'actions/ConnectionActions'
+
+require('./styles/Body')
 
 const BodyContainer = React.createClass({
   propTypes: {
     controller: PropTypes.object,
+    connectionsSelected: PropTypes.string,
     dispatch: PropTypes.func,
     torrents: PropTypes.array,
-    selectedTorrent: PropTypes.object
+    selectedTorrent: PropTypes.object,
+    setTorrent: PropTypes.func,
+    unsetTorrent: PropTypes.func
   },
 
   componentWillMount () {
-    this.props.dispatch(getTorrents(true))
+    const { connectionsSelected, dispatch } = this.props
+    dispatch(getTorrents(true, connectionsSelected))
   },
 
-  setTorrent (torrent, ev) {
-    if (ev) ev.stopPropagation()
-    this.props.dispatch(setTorrent(torrent.infohash))
-  },
-
-  unsetTorrent () {
-    this.props.dispatch(unsetTorrent())
-  },
-
+  /**
+   * Shows modal torrent upload form.
+   */
   handleAddClick () {
     this.props.dispatch(buildModal({
       title: 'Add Torrent',
@@ -38,18 +37,12 @@ const BodyContainer = React.createClass({
     }))
   },
 
-  handleStatusClick ({ infohash, status }) {
-    const { dispatch } = this.props
-    dispatch(updateTorrentStatus(infohash, status))
-  },
-
-  handleRemoveClick (infohash) {
-    const { dispatch } = this.props
-    dispatch(removeTorrent(infohash))
+  handleAddConnectionClick () {
+    this.props.dispatch(promptConnection())
   },
 
   render () {
-    const { dispatch, selectedTorrent, torrents } = this.props
+    const { setTorrent, unsetTorrent, dispatch, selectedTorrent, torrents } = this.props
 
     return (
       <ReactCSSTransitionGroup
@@ -57,24 +50,18 @@ const BodyContainer = React.createClass({
             className='app__body'
             transitionName='body-transition'
             transitionEnter={true}
-            transitionEnterTimeout={150}
+            transitionEnterTimeout={200}
             transitionLeave={true}
-            transitionLeaveTimeout={150}>
+            transitionLeaveTimeout={200}>
         <Sidebar
-          handleAddClick={this.handleAddClick} />
+          handleAddClick={this.handleAddClick}
+          handleAddConnectionClick={this.handleAddConnectionClick} />
         <TorrentList
           selectedTorrent={selectedTorrent}
           torrents={torrents}
           dispatch={dispatch}
-          unsetTorrent={this.unsetTorrent}
-          setTorrent={this.setTorrent} />
-        {!!selectedTorrent &&
-        !isEmpty(selectedTorrent) &&
-          <TorrentInfo
-            handleStatusClick={this.handleStatusClick}
-            handleRemoveClick={this.handleRemoveClick}
-            torrent={selectedTorrent} />
-        }
+          unsetTorrent={unsetTorrent}
+          setTorrent={setTorrent} />
       </ReactCSSTransitionGroup>
     )
   }

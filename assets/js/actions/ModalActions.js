@@ -1,12 +1,14 @@
+import * as ActionTypes from 'actions'
+
 export function buildModal (opts) {
   return {
-    type: 'MODAL',
+    type: ActionTypes.MODAL,
     payload: opts
   }
 }
 
 export function unsetModal () {
   return {
-    type: 'MODAL_UNSET'
+    type: ActionTypes.MODAL_UNSET
   }
 }

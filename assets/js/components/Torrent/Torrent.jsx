@@ -1,20 +1,24 @@
 import React, { PropTypes } from 'react'
 import cx from 'classnames'
 import bytes from 'bytes'
-import ProgressBar from './ProgressBar'
-import StatusIcon from './Icon/StatusIcon'
-import { humanize } from '../utils'
+import ProgressBar from 'components/ProgressBar/ProgressBar'
+import StatusIcon from '../Icon/StatusIcon'
+import { humanize } from '../../utils'
+import { isEmpty } from 'utils'
+import { parse } from 'url'
 
 export default React.createClass({
   propTypes: {
     active: PropTypes.bool,
     torrent: PropTypes.object.isRequired,
-    setTorrent: PropTypes.func.isRequired
+    setTorrent: PropTypes.func.isRequired,
+    unsetTorrent: PropTypes.func.isRequired,
+    selectedTorrent: PropTypes.object
   },
 
   render () {
-    const { setTorrent, torrent } = this.props
-    const { is_hash_checking, bytes_remaining, is_open, is_active, download_speed, upload_speed, bytes_total, seeders, peers, ratio } = torrent
+    const { unsetTorrent, selectedTorrent, setTorrent, torrent } = this.props
+    const { infohash, name, is_hash_checking, bytes_remaining, is_open, is_active, download_speed, upload_speed, bytes_total, seeders, peers, ratio } = torrent
 
     // TODO: decouple from rtorrent :)
     var status
@@ -38,15 +42,31 @@ export default React.createClass({
         className={cx('torrent-list__item', {
           'torrent-list__item--active': this.props.active
         })}
-        onClick={setTorrent.bind(null, torrent)}>
+        onClick={ev => {
+          if (selectedTorrent && !isEmpty(selectedTorrent) && selectedTorrent.infohash === infohash) {
+            unsetTorrent()
+          } else {
+            setTorrent(torrent.infohash, ev)
+          }
+        }}>
         <td className='torrent-list__data torrent-list__data--title'>
           <StatusIcon
             className='torrent-list__status'
             status={status} />
-          <span>{torrent.name}</span>
+          <div className='torrent-list__meta'>
+            <p className='torrent-list__meta__title'>{name}</p>
+            {torrent.trackers && torrent.trackers.length &&
+              <ul className='torrent-list__meta__list'>
+                <li className='torrent-list__meta__item'>{infohash.substring(0, 6).toLowerCase()}</li>
+                <li className='torrent-list__meta__item'>{parse(torrent.trackers[0].url).hostname}</li>
+              </ul>
+            }
+          </div>
         </td>
         <td className='torrent-list__data torrent-list__data--completion'>
-          <ProgressBar progress={(+torrent.bytes_downloaded / bytes_total * 100).toFixed(2) + '%'} />
+          <ProgressBar
+            status={status}
+            progress={(+torrent.bytes_downloaded / bytes_total * 100).toFixed(2) + '%'} />
         </td>
         <td className='torrent-list__data'>{bytes(+bytes_total)}</td>
         <td className='torrent-list__data'>{bytes(+download_speed)}/s</td>
@@ -54,7 +74,7 @@ export default React.createClass({
         <td className='torrent-list__data'>{seeders}</td>
         <td className='torrent-list__data'>{peers}</td>
         <td className='torrent-list__data'>{+bytes_remaining ? eta || '-' : <i className='fa fa-fw fa-check' />}</td>
-        <td className='torrent-list__data'>{ratio}</td>
+        <td className='torrent-list__data'>{+ratio / 1000}</td>
       </tr>
     )
   }

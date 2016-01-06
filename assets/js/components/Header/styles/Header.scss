@@ -1,0 +1,33 @@
+.header {
+  display: flex;
+  height: 50px;
+  background: #355585;
+  color: #fff;
+}
+
+.tabs {
+  display: flex;
+
+  &__tab {
+    display: flex;
+    border-right: 1px solid #526E9D;
+    padding: 0 10px;
+    cursor: pointer;
+    &:hover {
+      background: #385A8C;
+    }
+    &__text {
+      font-weight: 200;
+      margin: auto;
+    }
+    &__meta {
+      position: relative;
+      font-size: 10px;
+      top: -2px;
+    }
+    &--active {
+      background: #526E9D;
+    }
+  }
+}
+

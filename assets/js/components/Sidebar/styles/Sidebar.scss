@@ -1,0 +1,9 @@
+.sidebar {
+  background: #355585;
+  color: #fff;
+  &__list {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+  }
+}

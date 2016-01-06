@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react'
 import cx from 'classnames'
 
+require('./styles/StatusIcon')
+
 export default React.createClass({
   propTypes: {
     status: PropTypes.string,
@@ -35,7 +37,7 @@ export default React.createClass({
         ['icon--' + status]: status
       })}>
         <i className='fa fa-circle fa-stack-2x'></i>
-        <i className={'fa fa-inverse fa-stack-1x ' + statusClass}></i>
+        <i className={'icon__icon fa fa-inverse fa-stack-1x ' + statusClass}></i>
       </span>
     )
   }

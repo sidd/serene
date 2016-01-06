@@ -1,4 +1,10 @@
 import HumanizeDuration from 'humanize-duration'
+
+/**
+ * Asserts whether or not `obj` contains `{ didInvalidate: true }`
+ * @param  {Object}  obj
+ * @return {Boolean}
+ */
 export function isInvalid (obj) {
   if (obj !== null && typeof obj !== 'object') {
     throw new Error('`obj` must be an object.')
@@ -6,6 +12,11 @@ export function isInvalid (obj) {
   return obj && obj.didInvalidate === true
 }
 
+/**
+ * Asserts whether or not `obj` is an empty object.
+ * @param  {Object}  obj
+ * @return {Boolean}
+ */
 export function isEmpty (obj) {
   if (obj !== null && typeof obj !== 'object') {
     throw new Error('`obj` must be an object.')
@@ -13,7 +24,11 @@ export function isEmpty (obj) {
   return Object.keys(obj).length === 0
 }
 
-// goodness gracious
+/**
+ * A custom `HumanizeDuration` humanizer that is more terse.
+ * @return {Function}
+ * @see    https://www.npmjs.com/package/humanize-duration#humanizers
+ */
 export const humanize = HumanizeDuration.humanizer({
   language: 'short',
   delimiter: ' ',

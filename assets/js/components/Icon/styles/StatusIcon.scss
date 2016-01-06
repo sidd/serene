@@ -1,0 +1,23 @@
+.icon {
+  &__icon.fa {
+    font-size: 16px;
+  }
+  color: #666;
+  transition: 0.2s color, 0.2s transform linear;
+  transform: rotate(0deg);
+  &--downloading {
+    color: #355385;
+    transition: 0.2s color, 0.2s transform linear;
+    transform: rotate(360deg);
+  }
+  &--uploading {
+    color: #3CA337;
+    transition: 0.2s color, 0.2s transform linear;
+    transform: rotate(360deg);
+  }
+  &--checking {
+    color: #C99943;
+    transition: 0.2s color, 0.2s transform linear;
+    transform: rotate(360deg);
+  }
+}

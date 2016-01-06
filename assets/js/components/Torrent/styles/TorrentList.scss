@@ -1,0 +1,76 @@
+.torrent-list {
+  table-layout: fixed;
+  width: 100%;
+  &__container {
+    min-width: 700px;
+    overflow: scroll;
+
+  }
+  &__item {
+    cursor: pointer;
+    opacity: 1;
+    position: relative;
+    transition: 0.5s opacity;
+    &:hover {
+      background: #fcfcfc;
+    }
+  }
+  &__item, &__head {
+    border-bottom: 1px solid #efefef;
+    height: 40px;
+    line-height: 40px;
+
+    &--active {
+      background: #f8f8f8;
+    }
+  }
+  &__head {
+    border-bottom: 1px solid #eee;
+    &__title {
+      width: 25%;
+    }
+  }
+
+  &__status {
+    margin-right: 10px;
+  }
+  &__meta {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: initial;
+    &__list {
+      color: #aaa;
+      font-weight: 200;
+      font-size: 12px;
+    }
+    &__title {
+      letter-spacing: initial;
+      font-weight: normal;
+      font-size: 16px;
+    }
+    &__item {
+      float: left;
+      &:not(:last-child):after {
+        content: '\2022';
+        margin: 0 4px;
+      }
+    }
+  }
+  &__data {
+    color: #8f8f8f;
+    padding: 0 10px;
+    position: relative;
+    text-align: center;
+    font-size: 14px;
+
+    &--title {
+      text-align: left;
+      padding-left: 20px;
+      color: #444;
+      font-weight: bold;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}

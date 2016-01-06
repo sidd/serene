@@ -1,15 +1,19 @@
+import AppContainer from 'containers/AppContainer'
 import React from 'react'
-import { render } from 'react-dom'
+import store from 'store'
 import { Provider } from 'react-redux'
-import store from './store'
-import AppContainer from './containers/AppContainer'
+import { render } from 'react-dom'
 
-require('../scss/index.scss')
+require('../scss')
 
+/**
+ * Mounts application to `div#mount`. `AppContainer` is wrapped in <Provider />
+ * so `connect` can be used in children.
+ * @see  http://redux.js.org/docs/basics/UsageWithReact.html#connecting-to-redux
+ */
 render(
   <Provider store={store}>
     <AppContainer />
   </Provider>,
   document.getElementById('mount')
 )
-

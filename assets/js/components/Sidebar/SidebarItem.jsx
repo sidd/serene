@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react'
 
+require('./styles/SidebarItem')
+
 export default React.createClass({
   propTypes: {
     text: PropTypes.oneOfType([

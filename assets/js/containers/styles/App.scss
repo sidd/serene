@@ -1,0 +1,20 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  transition: 0.5s opacity;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  &__component {
+    flex: 0 auto;
+    transition: width 150ms linear;
+
+    &.body-transition-enter {
+      width: 0;
+    }
+
+    &.body-transition-leave-active {
+      width: 0 !important;
+    }
+  }
+}

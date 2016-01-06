@@ -1,0 +1,38 @@
+.progress {
+  line-height: 1;
+  position: relative;
+  font-size: 10px;
+  height: 10px;
+  &__bar {
+    border-radius: 15px;
+    background: #eee;
+    overflow: hidden;
+    height: 100%;
+    &__progress {
+      background: #355385;
+      height: 100%;
+      transition: background 250ms;
+      &--stopped, &--paused {
+        background: #666;
+      }
+      &--downloading {
+        background: #355385;
+      }
+      &--uploading {
+        background: #3CA337;
+      }
+      &--checking {
+        background: #C99943;
+      }
+    }
+  }
+
+  &__text {
+    &__container {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 13px;
+    }
+  }
+}
