@@ -46,10 +46,6 @@ module.exports = {
     hot: true,
     historyApiFallback: true,
     port: 7000,
-    contentBase: 'public/',
-    watchOptions: {
-      aggregateTimeout: 300,
-      poll: 1000
-    }
+    contentBase: 'public/'
   }
 }
