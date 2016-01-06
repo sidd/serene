@@ -41,6 +41,9 @@ module.exports = {
       __DEV__: process.env.NODE_ENV !== 'production'
     })
   ],
+  node: {
+    fs: 'empty'
+  },
   devServer: {
     devtool: 'eval-source-map',
     hot: true,
