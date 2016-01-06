@@ -16,9 +16,9 @@ $ git clone https://github.com/sidd/serene.git && cd serene
 
 ## Bundle your providers
 
-A pre-built bundle **already exists** in the public/dist/ directory, and this contains only an rTorrent provider.
+A pre-built bundle **already exists** in the public/dist/ directory, and this contains an rTorrent & WebTorrent provider.
 
-If you want to bundle other providers, you'll have to create a new bundle yourself. Be sure to drag in all of the necessary dependencies for bundling via `npm install` (which will take a bit), and then see [README.md](https://github.com/sidd/serene#installation) for a quick overview on the bundling process.
+If you want to bundle other providers, or remove ones you don't use, you'll have to create a new bundle yourself. Be sure to drag in all of the necessary dependencies for bundling via `npm install` (which will take a bit), and then see [README.md](https://github.com/sidd/serene#installation) for a quick overview on the bundling process.
 
 ## Serve the static directory
 

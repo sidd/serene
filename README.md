@@ -35,8 +35,8 @@ Serene's API is also **nowhere near** being finalized, so please keep that in mi
 Provider interfaces are lightweight adapters that simply implement a [predictable interface](); we'll just call them providers for short. Essentially, they are dialect definitions that will allow Serene to communicate with a variety of BitTorrent / WebTorrent clients.
 
 - [x] [serene-rtorrent](https://github.com/sidd/serene-rtorrent) (still a work in progress, but is functional!)
+- [ ] [serene-webtorrent](https://github.com/sidd/serene-webtorrent) (no functionality, only placeholder functions)
 - [ ] serene-deluge
-- [ ] serene-webtorrent
 
 ## installation
 
