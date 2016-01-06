@@ -1,6 +1,6 @@
 {
   "name": "serene",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "(WIP) minimal & modular front-end for bittorrent + webtorrent daemons",
   "scripts": {
     "start": "webpack-dev-server -d",
