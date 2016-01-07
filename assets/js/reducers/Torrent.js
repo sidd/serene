@@ -25,10 +25,7 @@ export function torrents (state = initialState, action) {
  */
 export function selectedTorrent (state = initialState, action) {
   switch (action.type) {
-    case 'PROVIDER_TORRENTS_DETAILS_PENDING':
-      return Object.assign({}, state, { isFetching: true, didInvalidate: false })
     case ActionTypes.TORRENT_SELECT:
-    case 'PROVIDER_TORRENTS_DETAILS_FULFILLED':
       return Object.assign({}, state, { isFetching: false, didInvalidate: false, item: action.payload.infohash })
     case ActionTypes.TORRENT_DESELECT:
       return initialState

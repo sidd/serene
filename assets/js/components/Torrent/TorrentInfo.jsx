@@ -39,7 +39,7 @@ export default React.createClass({
 
   render () {
     const { torrent } = this.props
-    const { trackers, path, bytes_downloaded, bytes_uploaded, bytes_total, infohash } = torrent
+    const { downloadUrls, trackers, path, bytes_downloaded, bytes_uploaded, bytes_total, infohash } = torrent
 
     return (
       <div className='torrent-info__container' ref='root'>
@@ -56,6 +56,11 @@ export default React.createClass({
             <TorrentInfoItem
               label='Path'
               value={path} />
+            <TorrentInfoItem
+              label='Downloads'
+              value={!!downloadUrls && downloadUrls.map(link =>
+                <a className='torrent-info__download__link' download={link.filename} href={link.url} target='_blank'>{link.filename}</a>
+              )} />
             <TorrentInfoItemContainer>
               <TorrentInfoItem
                 label='Downloaded'

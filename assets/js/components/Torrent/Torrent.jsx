@@ -18,7 +18,7 @@ export default React.createClass({
 
   render () {
     const { unsetTorrent, selectedTorrent, setTorrent, torrent } = this.props
-    const { infohash, name, is_hash_checking, bytes_remaining, is_open, is_active, download_speed, upload_speed, bytes_total, seeders, peers, ratio } = torrent
+    const { infohash, name, is_hash_checking, bytes_downloaded, bytes_remaining, is_open, is_active, download_speed, upload_speed, bytes_total, seeders, peers, ratio } = torrent
 
     // TODO: decouple from rtorrent :)
     var status
@@ -66,7 +66,7 @@ export default React.createClass({
         <td className='torrent-list__data torrent-list__data--completion'>
           <ProgressBar
             status={status}
-            progress={(+torrent.bytes_downloaded / bytes_total * 100).toFixed(2) + '%'} />
+            progress={(+bytes_downloaded / +bytes_total * 100).toFixed(2) + '%'} />
         </td>
         <td className='torrent-list__data'>{bytes(+bytes_total)}</td>
         <td className='torrent-list__data'>{bytes(+download_speed)}/s</td>

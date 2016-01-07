@@ -1,18 +1,19 @@
 import * as ActionTypes from 'actions'
-import { connectionsSelectedSelector, selectedTorrentSelector, selectedConnectionSelector } from 'selectors'
+import { connectionsSelectedSelector, selectedConnectionSelector } from 'selectors'
 
 export function setTorrent (infohash) {
   return (dispatch, getState) => {
     const state = getState()
-    dispatch({
-      type: ActionTypes.TORRENT_SELECT,
-      payload: {
-        infohash
-      }
-    })
-    if (selectedTorrentSelector(state).infohash !== infohash) {
-      dispatch(selectedConnectionSelector(state).getTorrentDetails(infohash))
-    }
+
+    dispatch(selectedConnectionSelector(state).getTorrentDetails(infohash))
+      .payload.promise.then(() => {
+        dispatch({
+          type: ActionTypes.TORRENT_SELECT,
+          payload: {
+            infohash
+          }
+        })
+      })
   }
 }
 
