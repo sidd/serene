@@ -36,11 +36,9 @@ const FooterContainer = React.createClass({
             handleStatusClick={handleStatusClick}
             handleRemoveClick={handleRemoveClick} />
         }
-        {!!stats && !isEmpty(stats) &&
-          <FooterInfo
-            controller={controller}
-            stats={stats} />
-        }
+        <FooterInfo
+          controller={controller}
+          stats={stats} />
         </ReactCSSTransitionGroup>
       </section>
     )

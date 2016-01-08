@@ -4,7 +4,12 @@ import cx from 'classnames'
 export default React.createClass({
   propTypes: {
     label: PropTypes.string,
-    value: PropTypes.string,
+    value: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.arrayOf(
+        PropTypes.node
+      )
+    ]),
     valueModifier: PropTypes.string, // TODO: or array of strings
     className: PropTypes.string
   },

@@ -28,7 +28,7 @@ const CredentialsModal = React.createClass({
   },
 
   /**
-   * Unsets Modal, and dispatches `setCredentials()` with form data.
+   * Closes modal, and dispatches `setCredentials()` with form data.
    * @param  {[type]} ev [description]
    * @return {[type]}    [description]
    */
@@ -40,6 +40,9 @@ const CredentialsModal = React.createClass({
 
   render () {
     const { providers } = this.props
+    const { provider = '' } = this.state.form
+    var options = (providers[provider] && providers[provider].options) ? providers[provider].options : {}
+
     return (
       <div className='credentials__container'>
         <form className='credentials' onSubmit={this.handleSubmit}>
@@ -53,22 +56,30 @@ const CredentialsModal = React.createClass({
               </select>
             </div>
           </div>
-          <div className='input__row'>
-            <div className='input__group input__group--full'>
-              <label className='input__label'>Host</label>
-              <input className='input input--text' type='text' name='host' placeholder='ex. http://127.0.0.1/RPC2' onChange={this.simpleFormMixinHandleChange} />
+          {options.host &&
+            <div className='input__row'>
+              <div className='input__group input__group--full'>
+                <label className='input__label'>Host</label>
+                <input className='input input--text' type='text' name='host' placeholder='ex. http://127.0.0.1/RPC2' onChange={this.simpleFormMixinHandleChange} />
+              </div>
             </div>
-          </div>
-          <div className='input__row'>
-            <div className='input__group'>
-              <label className='input__label'>Username</label>
-              <input className='input input--text' type='text' name='username' onChange={this.simpleFormMixinHandleChange} />
+          }
+          {(options.username || options.password) &&
+            <div className='input__row'>
+              {options.username &&
+                <div className='input__group'>
+                  <label className='input__label'>Username</label>
+                  <input className='input input--text' type='text' name='username' onChange={this.simpleFormMixinHandleChange} />
+                </div>
+              }
+              {options.password &&
+                <div className='input__group'>
+                  <label className='input__label'>Password</label>
+                  <input className='input input--text' type='password' name='password' onChange={this.simpleFormMixinHandleChange} />
+                </div>
+              }
             </div>
-            <div className='input__group'>
-              <label className='input__label'>Password</label>
-              <input className='input input--text' type='password' name='password' onChange={this.simpleFormMixinHandleChange} />
-            </div>
-          </div>
+          }
           <div className='input__row'>
             <div className='input__group input__group--full'>
               <button type='submit' className='input button'>

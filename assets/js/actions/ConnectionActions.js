@@ -2,9 +2,7 @@ import * as ActionTypes from 'actions'
 import CredentialsModal from 'components/Credentials/CredentialsModal'
 import { buildModal } from './ModalActions'
 import { getTorrents } from './TorrentActions'
-import { isEmpty } from 'utils'
 import { parse } from 'url'
-import { selectedConnectionSelector } from 'selectors'
 
 /**
  * Uses `data.provider` to build a connection.
@@ -15,20 +13,29 @@ import { selectedConnectionSelector } from 'selectors'
 export function createConnection (data) {
   return (dispatch, getState) => {
     const state = getState()
-    const host = parse(data.host)
+    var connectionId
+
+    if (data.host) {
+      const host = parse(data.host)
+      connectionId = host.href
+    } else {
+      connectionId = data.provider
+    }
+
+    // removes slashes from end of str when generating connectionId
+    // has no effect on the actual host connected to
+    while (/\/$/.test(connectionId)) {
+      connectionId = connectionId.slice(0, -1)
+    }
 
     dispatch({
       type: ActionTypes.CONNECTIONS_CREATE,
       payload: {
-        [host.host]: new state.providers[data.provider](data)
+        [connectionId]: new state.providers[data.provider](data)
       }
     })
-    if (isEmpty(selectedConnectionSelector(state))) {
-      dispatch({
-        type: ActionTypes.CONNECTIONS_SELECT,
-        payload: host.host
-      })
-    }
+
+    dispatch(selectConnection(connectionId))
   }
 }
 
