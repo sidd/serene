@@ -30,6 +30,8 @@ export const selectedTorrentSelector = createSelector(
 export const bodySelector = createStructuredSelector({
   torrents: visibleTorrentsSelector,
   torrentsIsSorted: torrentsIsSortedSelector,
+  torrentsIsSortedByDescending: torrentsIsSortedByDescendingSelector,
+  torrentsSortedBy: torrentsSortCriteriaSelector,
   selectedTorrent: selectedTorrentSelector,
   connectionsSelected: connectionsSelectedSelector
 })

@@ -10,7 +10,9 @@ export default React.createClass({
     unsetTorrent: PropTypes.func.isRequired,
     setTorrent: PropTypes.func.isRequired,
     selectedTorrent: PropTypes.object,
-    handleTorrentListHeaderClick: PropTypes.func
+    handleTorrentListHeaderClick: PropTypes.func,
+    isSortedByDescending: PropTypes.bool,
+    sortedBy: PropTypes.string
   },
 
   /**
@@ -62,12 +64,14 @@ export default React.createClass({
   },
 
   render () {
-    const { handleTorrentListHeaderClick, unsetTorrent, setTorrent, torrents, selectedTorrent } = this.props
+    const { isSortedByDescending, sortedBy, handleTorrentListHeaderClick, unsetTorrent, setTorrent, torrents, selectedTorrent } = this.props
 
     return (
       <section className='torrent-list__container app__component app__component--list' onClick={unsetTorrent}>
         <table className='torrent-list'>
           <TorrentListHeader
+            sortedBy={sortedBy}
+            isSortedByDescending={isSortedByDescending}
             handleClick={handleTorrentListHeaderClick} />
           <tbody>
             {torrents.map(

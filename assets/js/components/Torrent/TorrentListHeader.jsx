@@ -3,51 +3,77 @@ import TorrentListHeaderItem from './TorrentListHeaderItem'
 
 export default React.createClass({
   propTypes: {
-    handleClick: PropTypes.func
+    handleClick: PropTypes.func,
+    sortedBy: PropTypes.string,
+    isSortedByDescending: PropTypes.bool
   },
 
   render () {
-    const { handleClick } = this.props
+    const { isSortedByDescending, handleClick, sortedBy } = this.props
 
     return (
       <thead>
         <tr className='torrent-list__head'>
           <TorrentListHeaderItem
-            handleClick={handleClick} className='torrent-list__head__title'
+            className='torrent-list__head__item--title'
+            handleClick={handleClick}
+            sortedBy={sortedBy}
+            isSortedByDescending={isSortedByDescending}
             name='name'>
             Title
           </TorrentListHeaderItem>
           <TorrentListHeaderItem
+            sortedBy={sortedBy}
+            isSortedByDescending={isSortedByDescending}
             handleClick={handleClick}>
             Progress
           </TorrentListHeaderItem>
           <TorrentListHeaderItem
+            sortedBy={sortedBy}
             handleClick={handleClick}
+            isSortedByDescending={isSortedByDescending}
             name='bytes_total'>
             Size
           </TorrentListHeaderItem>
           <TorrentListHeaderItem
-            handleClick={handleClick}>
+            sortedBy={sortedBy}
+            handleClick={handleClick}
+            isSortedByDescending={isSortedByDescending}
+            name='download_speed'>
             DL
           </TorrentListHeaderItem>
           <TorrentListHeaderItem
-            handleClick={handleClick}>
+            sortedBy={sortedBy}
+            handleClick={handleClick}
+            isSortedByDescending={isSortedByDescending}
+            name='upload_speed'>
             UL
           </TorrentListHeaderItem>
           <TorrentListHeaderItem
-            handleClick={handleClick}>
+            sortedBy={sortedBy}
+            handleClick={handleClick}
+            isSortedByDescending={isSortedByDescending}
+            name='seeders'>
             Seeds
           </TorrentListHeaderItem>
           <TorrentListHeaderItem
-            handleClick={handleClick}>
+            sortedBy={sortedBy}
+            handleClick={handleClick}
+            isSortedByDescending={isSortedByDescending}
+            name='peers'>
             Peers
           </TorrentListHeaderItem>
           <TorrentListHeaderItem
+            sortedBy={sortedBy}
+            isSortedByDescending={isSortedByDescending}
             handleClick={handleClick}>
             ETA
           </TorrentListHeaderItem>
           <TorrentListHeaderItem
-            handleClick={handleClick}>
+            sortedBy={sortedBy}
+            handleClick={handleClick}
+            isSortedByDescending={isSortedByDescending}
+            name='ratio'>
             Ratio
           </TorrentListHeaderItem>
         </tr>

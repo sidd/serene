@@ -1,65 +1,50 @@
 import React, { PropTypes } from 'react'
 import { addTorrent } from 'actions/TorrentActions'
 import { connect } from 'react-redux'
+import { NativeTypes } from 'react-dnd-html5-backend'
+import { DropTarget } from 'react-dnd'
+
+const modalTarget = {
+  drop (props, monitor, component) {
+    const files = monitor.getItem().files
+
+    component.handleTorrentsDrop(files)
+  }
+}
+
+function collect (connect, monitor) {
+  return {
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver()
+  }
+}
 
 const AddTorrentModal = React.createClass({
   propTypes: {
     dispatch: PropTypes.func.isRequired,
-    unsetModal: PropTypes.func.isRequired
+    unsetModal: PropTypes.func.isRequired,
+    connectDropTarget: PropTypes.func.isRequired
   },
 
-  /**
-   * Stores the filename of the currently added file.
-   */
-  getInitialState () {
-    return {
-      filename: null
-    }
-  },
-
-  /**
-   * Handles torrent upload submission. Utilizes FileReader API,
-   * and makes naive assumptions about the type of file uploaded.
-   *
-   * @param {SyntheticEvent} [ev] event from React onSubmit prop
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/FileReader
-   * @todo Formally check filetype.
-   * @todo Handle multiple torrents simultaneously.
-   */
-  handleSubmit (ev) {
-    ev.preventDefault()
-    this.props.dispatch(addTorrent(ev.target[0].files))
-    this.props.unsetModal()
-  },
-
-  /**
-   * Updates this component's state with current filename.
-   *
-   * @param {SyntheticEvent} ev event from React onChange prop
-   * @todo use `parse-torrent` to generate more data than the filename.
-   * @see https://www.npmjs.com/package/parse-torrent
-   */
-  handleChange (ev) {
-    this.setState({
-      filename: ev.target.files.length
-        ? ev.target.files[0].name
-        : null
+  handleTorrentsDrop (files) {
+    var isInvalid = false
+    files.forEach(file => {
+      if (file.type !== 'application/x-bittorrent') {
+        isInvalid = true
+      }
     })
+    if (!isInvalid) this.props.dispatch(addTorrent(files))
   },
 
   render () {
-    return (
+    const { connectDropTarget } = this.props
+
+    return connectDropTarget(
       <div className='modal--torrent'>
-        <form onSubmit={this.handleSubmit} encType='multipart/form-data'>
-          <p className='modal--torrent__filename'>{this.state.filename || 'Drag torrent files here'}</p>
-          <input className='modal--torrent__file' type='file' name='torrent' onChange={this.handleChange} />
-          {!!this.state.filename &&
-            <button className='button' type='submit'>Upload</button>
-          }
-        </form>
+        Drag torrent(s) here
       </div>
     )
   }
 })
 
-export default connect(state => state)(AddTorrentModal)
+export default connect(state => state)(DropTarget(NativeTypes.FILE, modalTarget, collect)(AddTorrentModal))

@@ -26,8 +26,14 @@
   }
   &__head {
     border-bottom: 1px solid #eee;
-    &__title {
-      width: 25%;
+    &__item {
+      cursor: pointer;
+      &:hover {
+        background: #fafafa;
+      }
+      &--title {
+        width: 25%;
+      }
     }
   }
 

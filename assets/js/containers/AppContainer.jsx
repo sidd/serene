@@ -12,6 +12,8 @@ import { getProviders } from 'actions/ProviderActions'
 import { promptConnection } from 'actions/ConnectionActions'
 import { unsetModal } from 'actions/ModalActions'
 import { setTorrent, unsetTorrent, removeTorrent, updateTorrentStatus } from 'actions/TorrentActions'
+import { DragDropContext } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
 
 require('./styles/App')
 
@@ -118,4 +120,4 @@ const AppContainer = React.createClass({
     )
   }
 })
-export default connect(appSelector)(AppContainer)
+export default DragDropContext(HTML5Backend)(connect(appSelector)(AppContainer))

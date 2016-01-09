@@ -20,7 +20,9 @@ const BodyContainer = React.createClass({
     selectedTorrent: PropTypes.object,
     setTorrent: PropTypes.func,
     unsetTorrent: PropTypes.func,
-    torrentsIsSorted: PropTypes.bool
+    torrentsIsSorted: PropTypes.bool,
+    torrentsIsSortedByDescending: PropTypes.bool,
+    torrentsSortedBy: PropTypes.string
   },
 
   /**
@@ -39,11 +41,11 @@ const BodyContainer = React.createClass({
 
   handleTorrentListHeaderClick (ev) {
     ev.preventDefault()
-    this.props.dispatch(sortTorrents(ev.target.getAttribute('name')))
+    this.props.dispatch(sortTorrents(ev.currentTarget.getAttribute('name')))
   },
 
   render () {
-    const { torrentsIsSorted, setTorrent, unsetTorrent, dispatch, selectedTorrent, torrents } = this.props
+    const { torrentsIsSortedByDescending, torrentsSortedBy, torrentsIsSorted, setTorrent, unsetTorrent, dispatch, selectedTorrent, torrents } = this.props
 
     return (
       <ReactCSSTransitionGroup
@@ -60,7 +62,9 @@ const BodyContainer = React.createClass({
         <TorrentList
           handleTorrentListHeaderClick={this.handleTorrentListHeaderClick}
           selectedTorrent={selectedTorrent}
+          sortedBy={torrentsSortedBy}
           isSorted={torrentsIsSorted}
+          isSortedByDescending={torrentsIsSortedByDescending}
           torrents={torrents}
           dispatch={dispatch}
           unsetTorrent={unsetTorrent}

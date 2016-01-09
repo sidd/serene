@@ -85,11 +85,8 @@ export function sortTorrents (column, order) {
       type: ActionTypes.TORRENTS_SORT_VISIBLE,
       payload: {
         items: torrentsItems.slice().sort((a, b) => {
-          a = torrents[a][columnToSortBy]
-          b = torrents[b][columnToSortBy]
-
-          if (!isNaN(+a)) a = +a
-          if (!isNaN(+b)) b = +b
+          a = standardize(torrents[a][columnToSortBy])
+          b = standardize(torrents[b][columnToSortBy])
 
           if (a === b) return 0
           return isSortedByDescending
@@ -100,5 +97,14 @@ export function sortTorrents (column, order) {
         isSortedByDescending
       }
     })
+
+    function standardize (item) {
+      if (!isNaN(+item)) item = +item
+      else if (typeof item === 'string') {
+        item = item.toLowerCase()
+      }
+
+      return item
+    }
   }
 }
