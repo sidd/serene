@@ -12,7 +12,14 @@ import { Schemas } from 'schemas'
 export function torrents (state = initialState, action) {
   switch (action.type) {
     case 'PROVIDER_TORRENTS_FULFILLED':
-      return Object.assign({}, state, { items: normalize(action.payload, Schemas.TORRENT_ARRAY).result })
+      return Object.assign({}, state, { isSorted: false, items: normalize(action.payload, Schemas.TORRENT_ARRAY).result })
+    case ActionTypes.TORRENTS_SORT_VISIBLE:
+      return Object.assign({}, state, {
+        isSorted: true,
+        isSortedByDescending: action.payload.isSortedByDescending,
+        sortedBy: action.payload.sortedBy,
+        items: action.payload.items
+      })
     default: return state
   }
 }

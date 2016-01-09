@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import Torrent from './Torrent'
+import TorrentListHeader from './TorrentListHeader'
 
 require('./styles/TorrentList')
 
@@ -8,7 +9,8 @@ export default React.createClass({
     torrents: PropTypes.array.isRequired,
     unsetTorrent: PropTypes.func.isRequired,
     setTorrent: PropTypes.func.isRequired,
-    selectedTorrent: PropTypes.object
+    selectedTorrent: PropTypes.object,
+    handleTorrentListHeaderClick: PropTypes.func
   },
 
   /**
@@ -41,6 +43,10 @@ export default React.createClass({
     }
   },
 
+  shouldComponentUpdate (nextProps) {
+    return !!nextProps.isSorted
+  },
+
   /**
    * Begins listening for keydown events.
    */
@@ -56,24 +62,13 @@ export default React.createClass({
   },
 
   render () {
-    const { unsetTorrent, setTorrent, torrents, selectedTorrent } = this.props
+    const { handleTorrentListHeaderClick, unsetTorrent, setTorrent, torrents, selectedTorrent } = this.props
 
     return (
       <section className='torrent-list__container app__component app__component--list' onClick={unsetTorrent}>
         <table className='torrent-list'>
-          <thead>
-            <tr className='torrent-list__head'>
-              <th className='torrent-list__head__title'>Title</th>
-              <th>Progress</th>
-              <th>Size</th>
-              <th>DL</th>
-              <th>UL</th>
-              <th>Seeds</th>
-              <th>Peers</th>
-              <th>ETA</th>
-              <th>Ratio</th>
-            </tr>
-          </thead>
+          <TorrentListHeader
+            handleClick={handleTorrentListHeaderClick} />
           <tbody>
             {torrents.map(
               (t, i) =>

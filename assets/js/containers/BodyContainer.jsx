@@ -6,7 +6,7 @@ import TorrentList from 'components/Torrent/TorrentList'
 import { bodySelector } from 'selectors'
 import { buildModal } from 'actions/ModalActions'
 import { connect } from 'react-redux'
-import { getTorrents } from 'actions/TorrentActions'
+import { sortTorrents } from 'actions/TorrentActions'
 import { promptConnection } from 'actions/ConnectionActions'
 
 require('./styles/Body')
@@ -19,12 +19,8 @@ const BodyContainer = React.createClass({
     torrents: PropTypes.array,
     selectedTorrent: PropTypes.object,
     setTorrent: PropTypes.func,
-    unsetTorrent: PropTypes.func
-  },
-
-  componentWillMount () {
-    const { connectionsSelected, dispatch } = this.props
-    dispatch(getTorrents(true, connectionsSelected))
+    unsetTorrent: PropTypes.func,
+    torrentsIsSorted: PropTypes.bool
   },
 
   /**
@@ -41,8 +37,13 @@ const BodyContainer = React.createClass({
     this.props.dispatch(promptConnection())
   },
 
+  handleTorrentListHeaderClick (ev) {
+    ev.preventDefault()
+    this.props.dispatch(sortTorrents(ev.target.getAttribute('name')))
+  },
+
   render () {
-    const { setTorrent, unsetTorrent, dispatch, selectedTorrent, torrents } = this.props
+    const { torrentsIsSorted, setTorrent, unsetTorrent, dispatch, selectedTorrent, torrents } = this.props
 
     return (
       <ReactCSSTransitionGroup
@@ -57,7 +58,9 @@ const BodyContainer = React.createClass({
           handleAddClick={this.handleAddClick}
           handleAddConnectionClick={this.handleAddConnectionClick} />
         <TorrentList
+          handleTorrentListHeaderClick={this.handleTorrentListHeaderClick}
           selectedTorrent={selectedTorrent}
+          isSorted={torrentsIsSorted}
           torrents={torrents}
           dispatch={dispatch}
           unsetTorrent={unsetTorrent}

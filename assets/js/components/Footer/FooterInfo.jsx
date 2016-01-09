@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import bytes from 'bytes'
+import { version } from '../../../../package.json'
 
 require('./styles/Footer')
 
@@ -37,6 +38,11 @@ export default React.createClass({
         }
         <li className='footer__info-item'>
           <span><i className='fa fa-fw fa-database'></i> {controller.prettyName}</span>
+        </li>
+        <li className='footer__info-item'>
+          <span>
+            v{version}
+          </span>
         </li>
       </ul>
     )

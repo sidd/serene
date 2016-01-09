@@ -8,9 +8,12 @@ export const connectionsSelectedSelector = state => state.selectedConnection
 
 const entitiesStatsSelector = state => state.entities.stats
 
-const torrentsItemsSelector = state => state.torrents.items
+export const torrentsItemsSelector = state => state.torrents.items
+export const torrentsIsSortedSelector = state => state.torrents.isSorted
+export const torrentsSortCriteriaSelector = state => state.torrents.sortedBy
+export const torrentsIsSortedByDescendingSelector = state => state.torrents.isSortedByDescending
 const torrentsSelectedSelector = state => state.selectedTorrent.item
-const entitiesTorrentsSelector = state => state.entities.torrents
+export const entitiesTorrentsSelector = state => state.entities.torrents
 
 export const visibleTorrentsSelector = createSelector(
   torrentsItemsSelector,
@@ -26,6 +29,7 @@ export const selectedTorrentSelector = createSelector(
 
 export const bodySelector = createStructuredSelector({
   torrents: visibleTorrentsSelector,
+  torrentsIsSorted: torrentsIsSortedSelector,
   selectedTorrent: selectedTorrentSelector,
   connectionsSelected: connectionsSelectedSelector
 })
