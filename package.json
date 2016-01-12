@@ -8,7 +8,8 @@
     "provider:add": "npm install -g --prefix ./plugins",
     "provider:install": "npm run provider:add",
     "provider:remove": "npm remove -g --prefix ./plugins",
-    "build": "NODE_ENV=production webpack -p"
+    "build": "NODE_ENV=production webpack -p",
+    "postinstall": "cd node_modules/webpack/node_modules/node-libs-browser && npm install buffer@^4.1.0"
   },
   "repository": "sidd/serene",
   "keywords": [
