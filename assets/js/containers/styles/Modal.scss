@@ -33,19 +33,14 @@
   }
 
   &__title {
-    background: #efefef;
-    color: #888;
+    color: #000;
     letter-spacing: initial;
     padding: 10px;
-    border-bottom: 1px solid #ddd;
-    text-transform: uppercase;
-    text-align: center;
+    border-bottom: 1px solid #eee;
   }
 
   &__body {
-    padding: 10px;
-    border-bottom: 1px solid #eee;
-    min-height: 200px;
+    min-height: 150px;
   }
 
   &__footer {

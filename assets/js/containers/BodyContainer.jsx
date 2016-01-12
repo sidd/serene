@@ -80,9 +80,9 @@ const BodyContainer = React.createClass({
               'app__body--drop-active': isOver
             })}
             transitionName='body-transition'
-            transitionEnter={true}
+            transitionEnter
             transitionEnterTimeout={200}
-            transitionLeave={true}
+            transitionLeave
             transitionLeaveTimeout={200}
             ref={instance => connectDropTarget(findDOMNode(instance))}>
         <Sidebar

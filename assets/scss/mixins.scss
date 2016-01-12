@@ -1,0 +1,35 @@
+/**
+ * Mixes in :hover pseudoclass which darkens the font color
+ * by specified amount
+ * @param  $color   Color to be modified
+ * @param  $amount  Amount to darken by
+ * @mixes  &:hover
+ */
+@mixin darken-color-on-hover ($color, $amount: 10%) {
+  &:hover {
+    color: darken($color, $amount);
+  }
+}
+
+@mixin one-line-rules ($height: 1em) {
+  line-height: $height;
+  height: $height;
+}
+
+@mixin react-transition ($from, $to, $name: 'app', $rule: 'transform') {
+  &.#{$name}-transition-enter {
+    #{$rule}: #{$from};
+  }
+  &.#{$name}-transition-leave {
+    #{$rule}: #{$to};
+  }
+
+  &.#{$name}-transition-enter-active {
+    transition: all 200ms ease-in-out;
+    #{$rule}: #{$to};
+  }
+  &.#{$name}-transition-leave-active {
+    transition: all 200ms ease-in-out;
+    #{$rule}: #{$from};
+  }
+}

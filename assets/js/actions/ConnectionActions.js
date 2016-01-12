@@ -44,7 +44,7 @@ export function createConnection (data) {
  */
 export function promptConnection (isRequired) {
   return buildModal({
-    title: 'Enter connection info',
+    title: 'Add new connection',
     body: CredentialsModal,
     required: isRequired === undefined
   })

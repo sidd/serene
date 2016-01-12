@@ -51,7 +51,6 @@ export function setTorrentsToUpload (torrents) {
             body: AddTorrentsModal,
             required: false
           }))
-
         }
       })
     })

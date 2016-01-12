@@ -23,7 +23,7 @@ export default React.createClass({
               handleClick={handleConnectionClick.bind(null, conn)}
               connectionKey={conn}
               connection={connections[conn]}
-              showExtra={true} />
+              showExtra />
           )}
         </ul>
       </header>

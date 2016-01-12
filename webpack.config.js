@@ -20,6 +20,9 @@ module.exports = {
     filename: 'bundle.js'
   },
   module: {
+    preLoaders: [
+      { test: /\.jsx|\.js$/, loader: 'standard-loader', exclude: /(node_modules|plugins)/ }
+    ],
     loaders: [
       { test: /\.jsx|\.js$/, loader: 'react-hot!babel', exclude: /node_modules/ },
       { test: /\.json$/, loader: 'json' },

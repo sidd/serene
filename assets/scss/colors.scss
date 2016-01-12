@@ -1,0 +1,11 @@
+$serene-blue: #355385;
+$serene-copy: #353535;
+
+$serene-primary: $serene-blue !default;
+$serene-primary-cta: hsl(hue($serene-primary), 100%, 50%) !default;
+
+$serene-lightest: #fefefe;
+$serene-lighter: #fafafa;
+$serene-light: #ddd;
+$serene-dark: #aaa;
+$serene-darkest: $serene-copy;
