@@ -1,0 +1,68 @@
+.parsed-torrent {
+  &__container {
+    letter-spacing: initial;
+    height: 70vh;
+    overflow: scroll;
+  }
+  &__submit {
+    width: 100%;
+  }
+  &__data {
+    clear: both;
+    overflow: hidden;
+    margin-bottom: 10px;
+    &:not(:last-child) {
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+    &__heading {
+      margin-bottom: 10px;
+    }
+    &__file {
+      &__icon {
+        color: #aaa;
+        margin-right: 5px;
+      }
+      &__list {
+        padding-left: 40px;
+      }
+      &__item {
+        position: relative;
+        font-size: 14px;
+        margin-bottom: 10px;
+        &:before {
+          content: '';
+          background: #ddd;
+          height: 1px;
+          width: 35px;
+          position: absolute;
+          left: -40px;
+          top: 9px;
+        }
+        &:after {
+          content: '';
+          height: 7px;
+          width: 1px;
+          background: #eee;
+          position: absolute;
+          left: -40px;
+          top: 2px;
+        }
+      }
+    }
+  }
+  &__meta {
+    font-size: 12px;
+    &__data {
+      float: left;
+      margin-right: 10px;
+    }
+    &__key, &__value {
+      display: inline;
+    }
+    &__key {
+      color: #ccc;
+      padding-right: 5px;
+    }
+  }
+}

@@ -16,7 +16,7 @@ export default React.createClass({
 
     return (
       <th
-        className={cx(className, ' torrent-list__head__item', {
+        className={cx(className, 'torrent-list__head__item', {
           'torrent-list__head__item--sorted': true
         })}
         name={name}

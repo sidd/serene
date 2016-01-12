@@ -39,3 +39,13 @@ export function selectedTorrent (state = initialState, action) {
     default: return state
   }
 }
+
+export function torrentsToUpload (state = {}, action) {
+  switch (action.type) {
+    case ActionTypes.TORRENTS_TO_UPLOAD_SET:
+      return Object.assign({}, state, { items: action.payload })
+    case ActionTypes.TORRENTS_TO_UPLOAD_UNSET:
+      return {}
+    default: return state
+  }
+}

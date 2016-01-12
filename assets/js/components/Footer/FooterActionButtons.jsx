@@ -10,7 +10,7 @@ export default React.createClass({
   },
 
   render () {
-    const { handleStatusClick, selectedTorrent } = this.props
+    const { handleRemoveClick, handleStatusClick, selectedTorrent } = this.props
     const { infohash } = selectedTorrent
     return (
       <ul className='footer__actions-list'>
@@ -29,6 +29,10 @@ export default React.createClass({
         <li className='footer__actions-item' onClick={handleStatusClick.bind(null, { infohash, status: 'check' })}>
           <i className='fa fa-refresh'></i>
           <span>R</span>
+        </li>
+        <li className='footer__actions-item' onClick={handleRemoveClick.bind(null, infohash)}>
+          <i className='fa fa-remove'></i>
+          <span>X</span>
         </li>
       </ul>
     )

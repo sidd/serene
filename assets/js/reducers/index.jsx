@@ -5,7 +5,7 @@ import { modal } from './Modal'
 import { normalize } from 'normalizr'
 import { Schemas } from 'schemas'
 import { providers } from './Provider'
-import { selectedTorrent, torrents } from './Torrent'
+import { selectedTorrent, torrents, torrentsToUpload } from './Torrent'
 
 /**
  * Initial state that asynchronous reducer keys should utilize.
@@ -44,7 +44,7 @@ function entities (state = {}, action) {
  */
 export default combineReducers({
   entities,
-  selectedTorrent, torrents,
+  selectedTorrent, torrents, torrentsToUpload,
   selectedConnection, connections,
   providers,
   modal

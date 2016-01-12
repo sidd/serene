@@ -14,6 +14,11 @@ export const torrentsSortCriteriaSelector = state => state.torrents.sortedBy
 export const torrentsIsSortedByDescendingSelector = state => state.torrents.isSortedByDescending
 const torrentsSelectedSelector = state => state.selectedTorrent.item
 export const entitiesTorrentsSelector = state => state.entities.torrents
+export const torrentsToUploadItemsSelector = state => state.torrentsToUpload.items
+
+export const addTorrentsModalSelector = createStructuredSelector({
+  torrents: torrentsToUploadItemsSelector
+})
 
 export const visibleTorrentsSelector = createSelector(
   torrentsItemsSelector,

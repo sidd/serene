@@ -48,6 +48,7 @@
     "deep-assign": "git://github.com/sidd/deep-assign.git",
     "humanize-duration": "^3.4.0",
     "normalizr": "^1.4.0",
+    "parse-torrent": "^5.7.0",
     "react": "^0.14.3",
     "react-addons-css-transition-group": "^0.14.3",
     "react-dnd": "^2.0.2",

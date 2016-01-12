@@ -1,5 +1,11 @@
 .app__body {
   display: flex;
   flex: 1;
+  opacity: 1;
+
+  &--drop-active {
+    opacity: 0.9;
+    transition: 200ms opacity;
+  }
 }
 

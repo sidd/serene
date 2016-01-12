@@ -1,5 +1,8 @@
 import * as ActionTypes from 'actions'
+import { buildModal } from './ModalActions'
 import { torrentsIsSortedByDescendingSelector, torrentsSortCriteriaSelector, entitiesTorrentsSelector, torrentsItemsSelector, connectionsSelectedSelector, selectedConnectionSelector } from 'selectors'
+import AddTorrentsModal from 'components/Torrent/AddTorrentsModal'
+import parseTorrent from 'parse-torrent'
 
 export function setTorrent (infohash) {
   return (dispatch, getState) => {
@@ -17,17 +20,57 @@ export function setTorrent (infohash) {
   }
 }
 
+export function unsetTorrentsToUpload () {
+  return {
+    type: ActionTypes.TORRENTS_TO_UPLOAD_UNSET
+  }
+}
+
+export function setTorrentsToUpload (torrents) {
+  return dispatch => {
+    var numTorrents = torrents.length
+    var parsedTorrents = []
+
+    torrents.forEach(torrent => {
+      parseTorrent.remote(torrent, function (err, parsedTorrent) {
+        if (err) return console.error(err)
+        parsedTorrents.push(parsedTorrent)
+
+        parsedTorrent.originalFile = torrent
+
+        numTorrents = numTorrents - 1
+
+        if (numTorrents === 0) {
+          dispatch({
+            type: ActionTypes.TORRENTS_TO_UPLOAD_SET,
+            payload: parsedTorrents
+          })
+
+          dispatch(buildModal({
+            title: 'Add Torrents',
+            body: AddTorrentsModal,
+            required: false
+          }))
+
+        }
+      })
+    })
+  }
+}
+
 export function unsetTorrent () {
   return {
     type: ActionTypes.TORRENT_DESELECT
   }
 }
 
-export function addTorrent (torrent) {
+export function addTorrent (torrents, cb) {
+  torrents = torrents.map(torrent => torrent.originalFile || torrent)
   return (dispatch, getState) => {
     const state = getState()
-    dispatch(selectedConnectionSelector(state).addTorrent(torrent))
-      .payload.promise.then(
+    dispatch(selectedConnectionSelector(state).addTorrent(torrents)).payload.promise
+      .then(() => cb && dispatch(cb()))
+      .then(
         () => dispatch(selectedConnectionSelector(state).getTorrents())
       )
   }
