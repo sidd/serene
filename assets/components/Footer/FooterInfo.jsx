@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import bytes from 'bytes'
-import { version } from '../../../../package.json'
+import { version } from '../../../package.json'
 
 require('./styles/Footer')
 

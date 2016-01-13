@@ -4,7 +4,7 @@ import store from 'store'
 import { Provider } from 'react-redux'
 import { render } from 'react-dom'
 
-require('../scss')
+require('styles')
 
 /**
  * Mounts application to `div#mount`. `AppContainer` is wrapped in <Provider />

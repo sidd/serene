@@ -2,7 +2,7 @@ var path = require('path')
 var webpack = require('webpack')
 
 var entry = [
-  './assets/js/index.jsx'
+  './assets/index.jsx'
 ]
 
 if (process.env.NODE_ENV !== 'production') {
@@ -33,7 +33,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['', '.jsx', '.js', '.json', '.scss'],
-    modulesDirectories: ['assets/js', 'node_modules', 'plugins'],
+    modulesDirectories: ['assets', 'node_modules', 'plugins'],
     fallback: path.join(__dirname, 'node_modules')
   },
   resolveLoader: {

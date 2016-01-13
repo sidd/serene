@@ -1,8 +1,9 @@
-@import '../../../../scss/colors';
-@import '../../../../scss/mixins';
+@import '~styles/colors';
+@import '~styles/mixins';
 
 .footer {
-  @include one-line-rules(2.5em);
+  $footer-height: 2.5em;
+  @include one-line-rules($footer-height);
 
   background: $serene-lighter;
   border-top: 1px solid $serene-light;
@@ -13,34 +14,30 @@
   &__actions {
     &-list {
       @include react-transition(translateX(-100%), translateX(0%), 'footer');
+
       color: $serene-darkest;
       float: left;
+      text-align: center;
     }
     &-item {
-      float: left;
-      position: relative;
-      text-align: center;
-      width: 30px;
-      height: 30px;
-      line-height: 30px;
-      text-align: center;
       border-right: 1px solid #ccc;
-      padding: 0 5px;
+      float: left;
+      width: $footer-height;
+      position: relative;
 
-      > span {
-        display: none;
-      }
-      > i {
+      &__text { display: none; }
+
+      &__icon {
         position: relative;
         left: 1px;
       }
+
       &:hover {
-        color: #aaa;
-        > i {
-          visibility: hidden;
-        }
-        > span {
+        .footer__actions-item__icon { visibility: hidden; }
+
+        .footer__actions-item__text {
           cursor: default;
+          color: $serene-dark;
           position: absolute;
           display: inline;
           text-align: center;
