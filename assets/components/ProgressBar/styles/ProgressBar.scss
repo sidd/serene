@@ -1,38 +1,35 @@
+@import '~styles/colors';
+
 .progress {
+  $progress-height: 0.7em;
   line-height: 1;
   position: relative;
-  font-size: 10px;
-  height: 10px;
+  font-size: $progress-height;
+  height: $progress-height;
+
   &__bar {
-    border-radius: 15px;
-    background: #eee;
-    overflow: hidden;
+    background: $serene-light;
+    border-radius: $progress-height;
     height: 100%;
+    overflow: hidden;
+
     &__progress {
-      background: #355385;
       height: 100%;
-      transition: background 250ms;
+
       &--stopped, &--paused {
-        background: #666;
+        background: $serene-darker;
       }
-      &--downloading {
-        background: #355385;
-      }
-      &--uploading {
-        background: #3CA337;
-      }
-      &--checking {
-        background: #C99943;
-      }
+      &--downloading { background: $serene-primary; }
+      &--uploading { background: $serene-success; }
+      &--checking { background: $serene-warning; }
     }
   }
 
   &__text {
     &__container {
       position: absolute;
-      left: 0;
-      right: 0;
-      top: 13px;
+      left: 0; right: 0;
+      top: 1em;
     }
   }
 }

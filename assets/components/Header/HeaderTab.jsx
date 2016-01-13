@@ -20,11 +20,12 @@ export default React.createClass({
     const { active, connection, connectionKey, handleClick, showExtra } = this.props
     return (
       <li
-        className={cx('tabs__tab', { 'tabs__tab--active': active })}
+        className={cx('header__tabs__tab', { 'header__tabs__tab--active': active })}
         onClick={handleClick}>
-        <div className='tabs__tab__text'>
-          <span className='tabs__tab__title'>{connection.prettyName}</span> <span className='tabs__tab__meta'>{!!showExtra && `(${connectionKey})`}</span>
-        </div>
+        <span className='header__tabs__tab__title'>
+          {connection.prettyName}
+          <span className='header__tabs__tab__meta'>{!!showExtra && `(${connectionKey})`}</span>
+        </span>
       </li>
     )
   }

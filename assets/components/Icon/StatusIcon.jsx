@@ -34,7 +34,8 @@ export default React.createClass({
 
     return (
       <span className={cx('fa-stack icon', this.props.className, {
-        ['icon--' + status]: status
+        ['icon--' + status]: status,
+        'icon--status': status
       })}>
         <i className='fa fa-circle fa-stack-2x'></i>
         <i className={'icon__icon fa fa-inverse fa-stack-1x ' + statusClass}></i>

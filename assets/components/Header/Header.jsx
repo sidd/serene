@@ -15,7 +15,7 @@ export default React.createClass({
     const { handleConnectionClick, connections, connectionsSelected } = this.props
     return (
       <header className='header'>
-        <ul className='tabs'>
+        <ul className='header__tabs'>
           {Object.keys(connections).map(conn =>
             <HeaderTab
               active={connectionsSelected === conn}

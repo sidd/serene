@@ -1,11 +1,21 @@
 $serene-blue: #355385;
+$serene-green: #3CA337;
+$serene-yellow: #C99943;
+
 $serene-copy: #353535;
 
 $serene-primary: $serene-blue !default;
 $serene-primary-cta: hsl(hue($serene-primary), 100%, 50%) !default;
 
+$serene-success: $serene-green !default;
+$serene-warning: $serene-yellow !default;
+
 $serene-lightest: #fefefe;
 $serene-lighter: #fafafa;
 $serene-light: #ddd;
 $serene-dark: #aaa;
+$serene-darker: #666;
 $serene-darkest: $serene-copy;
+
+$serene-fonts: 'Lato', sans-serif;
+$serene-fonts-monospace: Menlo, 'Lucida Console', 'Courier New', monospace;

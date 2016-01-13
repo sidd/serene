@@ -35,10 +35,11 @@ export default React.createClass({
 
   render () {
     const { unsetModal, modal } = this.props
+    const { className = '' } = modal
 
     return (
       <div className='modal__container' onClick={() => unsetModal()}>
-        <div className='modal' onClick={ev => ev.stopPropagation()}>
+        <div className={'modal ' + className} onClick={ev => ev.stopPropagation()}>
           <div className='modal__title'>{modal.title}</div>
           <div className='modal__body'>
             <modal.body unsetModal={this.props.unsetModal} />

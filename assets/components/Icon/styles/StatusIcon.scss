@@ -1,23 +1,18 @@
+@import '~styles/colors';
+
 .icon {
-  &__icon.fa {
-    font-size: 16px;
+  @mixin color-transition {
+    transition: 0.2s color, 0.2s transform linear;
+    transform: rotate(360deg);
   }
-  color: #666;
+
+  height: 1.8em;
   transition: 0.2s color, 0.2s transform linear;
   transform: rotate(0deg);
-  &--downloading {
-    color: #355385;
-    transition: 0.2s color, 0.2s transform linear;
-    transform: rotate(360deg);
-  }
-  &--uploading {
-    color: #3CA337;
-    transition: 0.2s color, 0.2s transform linear;
-    transform: rotate(360deg);
-  }
-  &--checking {
-    color: #C99943;
-    transition: 0.2s color, 0.2s transform linear;
-    transform: rotate(360deg);
-  }
+
+  &__icon.fa { font-size: 1rem; }
+  &--downloading, &--uploading, &--checking { @include color-transition; }
+  &--downloading { color: $serene-primary; }
+  &--uploading { color: $serene-success; }
+  &--checking { color: $serene-warning; }
 }

@@ -1,76 +1,49 @@
+@import '~styles/colors';
+@import '~styles/mixins';
+
 .torrent-info {
   background: #fafafa;
   &__container {
+    @include react-transition(translateY(0%), translateY(-100%), 'app', 'transform', '.torrent-info');
+    @include react-transition(0, 0, 'app', 'height');
+
+    box-shadow: 0 0 0.5em 1px rgba(0, 0, 0, 0.1);
     letter-spacing: initial;
-    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.1);
-    &.app-transition-enter {
-      height: 0;
-      & .torrent-info {
-        transform: translateY(0%);
-      }
-    }
-    &.app-transition-enter-active {
-      height: 0;
-      & .torrent-info {
-        transition: 200ms transform ease-in-out;
-        transform: translateY(-100%);
-        background: #fafafa;
-      }
-    }
-    &.app-transition-leave {
-      height: 0;
-      & .torrent-info {
-        transform: translateY(-100%);
-        background: #fafafa;
-      }
-    }
-    &.app-transition-leave-active {
-      height: 0;
-      & .torrent-info {
-        transition: 200ms transform ease-in-out;
-        transform: translateY(0%);
-        background: #fafafa;
-      }
-    }
   }
 
   &__name {
-    font-size: 20px;
-    padding: 15px 0 5px 15px;
+    font-size: 1.2em;
+    padding: 1em 0 0.3em 1em;
   }
+
   &__details {
     display: table;
+    font-size: 0.8em;
     table-layout: fixed;
   }
 
   &__data {
-    margin: 15px;
+    margin: 1em;
     display: table;
-    font-size: 14px;
     &--half {
       display: table-cell;
-      padding-right: 10px;
+      padding-right: 1em;
     }
   }
 
-  &__key, &__value {
-    display: table-cell;
-  }
+  &__key, &__value { display: table-cell; }
+  &__key { color: $serene-dark; }
 
-  &__key {
-    color: #aaa;
-  }
   &__value {
-    padding-left: 10px;
-    &--monospace {
-      font-family: Menlo, 'Lucida Console', 'Courier New', monospace;
-    }
+    padding-left: 1em;
+    &--monospace { font-family: $serene-fonts-monospace; }
   }
+
   &__download {
     &__link {
-      border: 1px solid #ddd;
-      padding: 5px;
-      margin-right: 10px;
+      border: 1px solid $serene-light;
+      padding: 0.3em;
+      margin-right: 1em;
       &:hover {
         background: #eee;
       }

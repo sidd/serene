@@ -1,5 +1,7 @@
+@import '~styles/colors';
+
 .sidebar {
-  background: #355585;
+  background: $serene-primary;
   color: #fff;
   &__list {
     display: flex;

@@ -2,7 +2,7 @@
 @import '~styles/mixins';
 
 .footer {
-  $footer-height: 2.5em;
+  $footer-height: 2rem;
   @include one-line-rules($footer-height);
 
   background: $serene-lighter;
@@ -40,7 +40,6 @@
           color: $serene-dark;
           position: absolute;
           display: inline;
-          text-align: center;
           left: 0;
           right: 0;
         }
@@ -50,14 +49,18 @@
   &__info {
     &-list {
       float: right;
-      margin-right: 5px;
+      letter-spacing: 0.1em;
+      margin-right: 0.5em;
     }
     &-item {
+      $item-spacing: 0.8em;
+
       float: left;
+
       &:not(:last-child) {
-        margin-right: 10px;
-        padding-right: 10px;
-        border-right: 1px solid #ccc;
+        margin-right: $item-spacing;
+        padding-right: $item-spacing;
+        border-right: 1px solid $serene-light;
       }
     }
   }

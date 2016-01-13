@@ -1,68 +1,74 @@
+@import '~styles/colors';
+
 .parsed-torrent {
   &__container {
-    letter-spacing: initial;
     height: 70vh;
+    margin: 1em auto;
     overflow: scroll;
+    width: 90%;
   }
-  &__submit {
-    width: 100%;
-  }
+
+  &__submit { width: 100%; }
+
   &__data {
     clear: both;
     overflow: hidden;
-    margin-bottom: 10px;
+    margin-bottom: 1em;
+
     &:not(:last-child) {
-      padding-bottom: 10px;
+      padding-bottom: 1em;
       border-bottom: 1px solid #eee;
     }
-    &__heading {
-      margin-bottom: 10px;
-    }
+    &__heading { margin-bottom: 1em; }
     &__file {
+      $nester-width: 3em;
+      $nester-height: 0.7em;
+
       &__icon {
-        color: #aaa;
-        margin-right: 5px;
+        color: $serene-dark;
+        margin-right: 0.3em;
       }
+
       &__list {
-        padding-left: 40px;
+        font-size: 0.8em;
+        padding-left: $nester-width;
       }
       &__item {
         position: relative;
-        font-size: 14px;
-        margin-bottom: 10px;
+        margin-bottom: 0.8em;
         &:before {
           content: '';
           background: #ddd;
           height: 1px;
-          width: 35px;
+          width: $nester-width - 0.5em;
           position: absolute;
-          left: -40px;
-          top: 9px;
+          left: -$nester-width;
+          top: $nester-height;
         }
         &:after {
           content: '';
-          height: 7px;
+          height: $nester-height;
           width: 1px;
-          background: #eee;
+          background: $serene-light;
           position: absolute;
-          left: -40px;
-          top: 2px;
+          left: -$nester-width;
+          top: 0;
         }
       }
     }
   }
+
   &__meta {
-    font-size: 12px;
+    font-size: 0.8em;
+
     &__data {
       float: left;
-      margin-right: 10px;
+      margin-right: 1em;
     }
-    &__key, &__value {
-      display: inline;
-    }
+    &__key, &__value { display: inline; }
     &__key {
       color: #ccc;
-      padding-right: 5px;
+      padding-right: 0.4em;
     }
   }
 }

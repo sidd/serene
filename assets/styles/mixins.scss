@@ -16,20 +16,26 @@
   height: $height;
 }
 
-@mixin react-transition ($from, $to, $name: 'app', $rule: 'transform') {
-  &.#{$name}-transition-enter {
+@mixin react-transition ($from, $to, $name: 'app', $rule: 'transform', $child: '') {
+  &.#{$name}-transition-enter #{$child} {
     #{$rule}: #{$from};
   }
-  &.#{$name}-transition-leave {
+  &.#{$name}-transition-leave #{$child} {
     #{$rule}: #{$to};
   }
 
-  &.#{$name}-transition-enter-active {
+  &.#{$name}-transition-enter-active #{$child} {
     transition: all 200ms ease-in-out;
     #{$rule}: #{$to};
   }
-  &.#{$name}-transition-leave-active {
+  &.#{$name}-transition-leave-active #{$child} {
     transition: all 200ms ease-in-out;
     #{$rule}: #{$from};
   }
+}
+
+@mixin one-line-ellipsis-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

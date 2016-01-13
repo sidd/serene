@@ -1,33 +1,29 @@
+@import '~styles/colors';
+@import '~styles/mixins';
+
 .header {
-  display: flex;
-  height: 50px;
-  background: #355585;
+  @include one-line-rules(3.125rem);
+  background: $serene-primary;
   color: #fff;
-}
-
-.tabs {
   display: flex;
+  letter-spacing: 0.05rem;
 
-  &__tab {
-    display: flex;
-    border-right: 1px solid #526E9D;
-    padding: 0 10px;
-    cursor: pointer;
-    &:hover {
-      background: #385A8C;
-    }
-    &__text {
-      font-weight: 200;
-      margin: auto;
-    }
-    &__meta {
-      position: relative;
-      font-size: 10px;
-      top: -2px;
-    }
-    &--active {
-      background: #526E9D;
+  &__tabs {
+    &__tab {
+      border-right: 1px solid #526E9D;
+      padding: 0 1em;
+      cursor: pointer;
+
+      &:hover { background: #385A8C; }
+      &--active { background: #526E9D; }
+      &__meta {
+        font-size: 0.5em;
+        margin-left: 0.5em;
+        position: relative;
+        top: -2px;
+      }
+      &__title { line-height: 1; }
     }
   }
-}
 
+}

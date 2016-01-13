@@ -46,7 +46,8 @@ export function promptConnection (isRequired) {
   return buildModal({
     title: 'Add new connection',
     body: CredentialsModal,
-    required: isRequired === undefined
+    required: isRequired === undefined,
+    className: 'modal--connection'
   })
 }
 
