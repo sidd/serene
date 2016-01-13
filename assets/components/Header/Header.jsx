@@ -14,7 +14,7 @@ export default React.createClass({
     return (
       <header className='header'>
         <div className='header__title'>
-          <span>Showing all <span className='header__filter'>active <i className='fa fa-sm fa-caret-down' /></span> transfers from <span className='header__filter'>rTorrent 0.9.6 <i className='fa fa-sm fa-caret-down' /></span></span>
+          <span>Showing <span className='header__filter'>active <i className='fa fa-sm fa-caret-down' /></span> transfers from <span className='header__filter'>rTorrent 0.9.6 <i className='fa fa-sm fa-caret-down' /></span></span>
         </div>
         <div className='header__search__container'>
           <label htmlFor='search' className='header__search__label'>
