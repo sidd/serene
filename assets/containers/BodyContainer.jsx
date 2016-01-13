@@ -1,7 +1,6 @@
 import cx from 'classnames'
 import React, { PropTypes } from 'react'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-import Sidebar from 'components/Sidebar/Sidebar'
 import TorrentList from 'components/Torrent/TorrentList'
 import { setTorrentsToUpload, sortTorrents } from 'actions/TorrentActions'
 import { bodySelector } from 'selectors'
@@ -85,9 +84,9 @@ const BodyContainer = React.createClass({
             transitionLeave
             transitionLeaveTimeout={200}
             ref={instance => connectDropTarget(findDOMNode(instance))}>
-        <Sidebar
+        {/* <Sidebar
           handleAddClick={this.handleAddClick}
-          handleAddConnectionClick={this.handleAddConnectionClick} />
+          handleAddConnectionClick={this.handleAddConnectionClick} /> */}
         <TorrentList
           handleTorrentListHeaderClick={this.handleTorrentListHeaderClick}
           selectedTorrent={selectedTorrent}

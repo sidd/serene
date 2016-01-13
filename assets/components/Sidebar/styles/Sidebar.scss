@@ -1,11 +1,30 @@
 @import '~styles/colors';
 
 .sidebar {
-  background: $serene-primary;
-  color: #fff;
+  &.app__component {
+    flex: 1 0 10%;
+  }
+
+  background: $serene-lighter;
+  color: $serene-darker;
+  font-size: 0.9em;
+  min-width: 150px;
+
   &__list {
     display: flex;
     flex-direction: column;
     flex: 1 1 auto;
+    letter-spacing: 0.05em;
+    margin-top: 1em;
+  }
+
+  &__item {
+    cursor: pointer;
+    padding: 0.3em 0.4em;
+  }
+
+  &__icon {
+    color: $serene-dark;
+    margin-right: 0.4em;
   }
 }

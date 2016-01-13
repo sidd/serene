@@ -6,7 +6,7 @@ $fa-font-path: '~font-awesome/fonts';
 @import 'mixins';
 
 // Font Awesome overrides + helpers
-.fa { -webkit-font-smoothing: subpixel-antialiased; }
+// .fa { -webkit-font-smoothing: subpixel-antialiased; }
 .fa-sm { transform: scale(0.75); }
 
 // App rules
@@ -32,12 +32,11 @@ input:-webkit-autofill {
 }
 
 // Disable all browser / user-agent <button> styles
-button {
+button, select {
   -webkit-appearance: none;
   appearance: none;
   background: 0;
   border: 0;
-  color: $serene-primary-cta;
 }
 
 // Basic blocks
@@ -46,6 +45,7 @@ button {
 
   cursor: pointer;
   padding: 1rem;
+  color: $serene-primary-cta;
 }
 
 .input {
@@ -55,6 +55,7 @@ button {
   border-bottom: 1px solid $serene-light;
   font-size: 0.8em;
   overflow: hidden;
+
   &__label {
     display: block;
     float: left;
@@ -64,5 +65,14 @@ button {
     border: 0;
     line-height: initial;
     width: 100% - $label-width;
+    &--underlined {
+      border-bottom: 1px solid $serene-light;
+    }
+    &--select {
+      position: relative;
+    }
+    &:focus + .input__label {
+      color: $serene-primary-highlighted;
+    }
   }
 }

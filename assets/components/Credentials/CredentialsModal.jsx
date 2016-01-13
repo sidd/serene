@@ -46,32 +46,30 @@ const CredentialsModal = React.createClass({
     return (
       <div className='credentials__container'>
         <form className='credentials' onSubmit={this.handleSubmit}>
-          {/* <div className='input__row'>
-            <div className='input__group input__group--full'>
-              <label className='input__label'>Provider</label>
-              <select className='input input--select' name='provider' onChange={this.simpleFormMixinHandleChange}>
-                {Object.keys(providers).map(provider =>
-                  <option key={provider} value={provider}>{providers[provider].prettyName}</option>
-                )}
-              </select>
-            </div>
-          </div> */}
+          <div className='input'>
+            <label className='input__label'>Provider</label>
+            <select className='input__field input__field--select' name='provider' onChange={this.simpleFormMixinHandleChange}>
+              {Object.keys(providers).map(provider =>
+                <option key={provider} value={provider}>{providers[provider].prettyName}</option>
+              )}
+            </select>
+          </div>
           {options.host &&
             <div className='input'>
-              <label className='input__label'>Host</label>
               <input className='input__field input__field--text' type='text' name='host' placeholder='ex. http://127.0.0.1/RPC2' onChange={this.simpleFormMixinHandleChange} />
+              <label className='input__label'>Host</label>
             </div>
           }
           {options.username &&
             <div className='input'>
-              <label className='input__label'>Username</label>
               <input className='input__field input__field--text' type='text' name='username' onChange={this.simpleFormMixinHandleChange} />
+              <label className='input__label'>Username</label>
             </div>
           }
           {options.password &&
             <div className='input'>
-              <label className='input__label'>Password</label>
               <input className='input__field input__field--text' type='password' name='password' onChange={this.simpleFormMixinHandleChange} />
+              <label className='input__label'>Password</label>
             </div>
           }
           <button type='submit' className='button credentials__submit'>

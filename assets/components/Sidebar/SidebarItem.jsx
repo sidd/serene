@@ -14,11 +14,12 @@ export default React.createClass({
   render () {
     return (
     <li className='sidebar__item'>
-      <a
+      {/* <a
         className='sidebar__link'
         onClick={this.props.handleClick}>
-        {this.props.text}
-      </a>
+        <i className={'fa fa-fw sidebar__icon ' + this.props.icon} />
+        {this.props.children}
+      </a> */}
     </li>
     )
   }

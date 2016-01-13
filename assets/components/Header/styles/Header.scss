@@ -2,28 +2,53 @@
 @import '~styles/mixins';
 
 .header {
-  @include one-line-rules(3.125rem);
-  background: $serene-primary;
-  color: #fff;
-  display: flex;
-  letter-spacing: 0.05rem;
+  @include one-line-rules(3rem);
+  padding: 0 2em;
+  border-bottom: 1px solid $serene-light;
 
-  &__tabs {
-    &__tab {
-      border-right: 1px solid #526E9D;
-      padding: 0 1em;
-      cursor: pointer;
+  &__search {
+    &__container {
+      color: $serene-light;
+      float: left;
+    }
+    font-size: 0.8em;
+    letter-spacing: 0.05rem;
+    width: auto !important;
 
-      &:hover { background: #385A8C; }
-      &--active { background: #526E9D; }
-      &__meta {
-        font-size: 0.5em;
-        margin-left: 0.5em;
-        position: relative;
-        top: -2px;
-      }
-      &__title { line-height: 1; }
+    &__label {
+      margin-right: 0.5em;
     }
   }
+  &__title {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+  }
+  &__filter {
+    color: $serene-primary-highlighted;
+  }
 
+}
+
+.nav {
+  float: right;
+  font-size: 1.2em;
+  &__item {
+    display: inline-block;
+    text-align: center;
+    width: 2.3em;
+  }
+  &__link {
+    display: block;
+    white-space: nowrap;
+    position: relative;
+
+    &__caret {
+      position: absolute;
+      left: 1.6em;
+      top: 50%;
+      transform: scale(0.6) translateY(-80%);
+    }
+  }
 }

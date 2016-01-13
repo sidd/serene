@@ -12,13 +12,18 @@ export default React.createClass({
   render () {
     return (
       <section className='sidebar app__component app__component--sidebar'>
+        <p>Navigation</p>
         <ul className='sidebar__list'>
           <SidebarItem
-            text={<i className='fa fa-fw fa-plus' />}
-            handleClick={this.props.handleAddClick} />
+            icon='fa-table'
+            handleClick={this.props.handleAddClick}>
+            Dashboard
+          </SidebarItem>
           <SidebarItem
-            text={<i className='fa fa-fw fa-sign-in' />}
-            handleClick={this.props.handleAddConnectionClick} />
+            icon='fa-gear'
+            handleClick={this.props.handleAddClick}>
+            Settings
+          </SidebarItem>
         </ul>
       </section>
     )
