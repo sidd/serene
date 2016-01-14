@@ -17,9 +17,9 @@ export default React.createClass({
         <div className='progress__bar'>
           <div className={cx('progress__bar__progress', status && ('progress__bar__progress--' + status))} style={{ width: this.props.progress }} />
         </div>
-        <div className='progress__text__container'>
+        {/* <div className='progress__text__container'>
           <span className='progress__text'>{this.props.progress}</span>
-        </div>
+        </div> */}
       </div>
     )
   }

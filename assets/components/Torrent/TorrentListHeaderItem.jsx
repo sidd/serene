@@ -23,7 +23,7 @@ export default React.createClass({
         onClick={handleClick}>
         {children}
         {sortedBy === name &&
-          <i className={cx('fa fa-sm', {
+          <i className={cx('torrent-list__head__sort-order fa fa-sm', {
             'fa-caret-down': isSortedByDescending,
             'fa-caret-up': !isSortedByDescending
           })} />
