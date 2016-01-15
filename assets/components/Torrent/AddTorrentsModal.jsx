@@ -13,7 +13,7 @@ const AddTorrentsModal = React.createClass({
     torrents: PropTypes.array,
     dispatch: PropTypes.func.isRequired,
     unsetModal: PropTypes.func.isRequired,
-    onFilesDrop: PropTypes.func.isRequired
+    onFilesDrop: PropTypes.func
   },
 
   handleSubmit (ev) {
@@ -38,11 +38,11 @@ const AddTorrentsModal = React.createClass({
           ? <div className='parsed-torrent__container'>
               <div className='parsed-torrent__torrents'>
                 {!isEmpty(torrents || {}) && torrents.map(torrent =>
-                  <div className='parsed-torrent__data'>
+                  <div className='parsed-torrent__data' key={torrent.infoHash}>
                     <h3 className='parsed-torrent__data__heading'>{torrent.name}</h3>
                     <ul className='parsed-torrent__data__file__list'>
                       {torrent.files.map(file =>
-                          <li className='parsed-torrent__data__file__item'>
+                          <li className='parsed-torrent__data__file__item' key={file.offset}>
                             <span><i className='parsed-torrent__data__file__icon fa fa-file-o'></i>{file.name}</span>
                           </li>
                       )}

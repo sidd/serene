@@ -47,7 +47,7 @@ export default React.createClass({
           </h2>
           <ul className='header__connection-list'>
             {connections && Object.keys(connections).map(conn =>
-              <li className='header__connection-item' onClick={handleConnectionClick.bind(null, conn)}>
+              <li className='header__connection-item' onClick={handleConnectionClick.bind(null, conn)} key={conn}>
                 <span className={cx('header__connection', {
                   'header__connection--active': connectionsSelected === conn
                 })}>

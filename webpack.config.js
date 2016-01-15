@@ -7,8 +7,10 @@ var plugins = [
     __DEV__: process.env.NODE_ENV !== 'production'
   })
 ]
+var jsLoader = { test: /\.jsx|\.js$/, loader: 'react-hot!babel', exclude: /node_modules/ }
 
 if (process.env.NODE_ENV !== 'production') {
+  jsLoader.loader = 'babel'
   plugins.unshift(new webpack.HotModuleReplacementPlugin())
   entry = [
     'webpack-dev-server/client?http://0.0.0.0:7000',
@@ -28,7 +30,7 @@ module.exports = {
       { test: /\.jsx|\.js$/, loader: 'standard-loader', exclude: /(node_modules|plugins)/ }
     ],
     loaders: [
-      { test: /\.jsx|\.js$/, loader: 'react-hot!babel', exclude: /node_modules/ },
+      jsLoader,
       { test: /\.json$/, loader: 'json' },
       { test: /\.scss$/, loader: 'style!css!sass' },
       { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff' },
