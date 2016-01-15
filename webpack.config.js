@@ -32,13 +32,13 @@ module.exports = {
     loaders: [
       jsLoader,
       { test: /\.json$/, loader: 'json' },
-      { test: /\.scss$/, loader: 'style!css!sass' },
+      { test: /\.(css|scss)$/, loader: 'style!css!sass' },
       { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff' },
       { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader' }
     ]
   },
   resolve: {
-    extensions: ['', '.jsx', '.js', '.json', '.scss'],
+    extensions: ['', '.jsx', '.js', '.json', '.scss', '.css'],
     modulesDirectories: ['assets', 'node_modules', 'plugins'],
     fallback: path.join(__dirname, 'node_modules')
   },
