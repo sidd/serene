@@ -1,59 +1,63 @@
 import React, { PropTypes } from 'react'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import cx from 'classnames'
+import HeaderDropdown from './HeaderDropdown'
+import { parse } from 'url'
 
 require('./styles/Header')
 
 export default React.createClass({
   propTypes: {
-    controller: PropTypes.object,
     connections: PropTypes.object,
     connectionsSelected: PropTypes.string,
-    handleConnectionClick: PropTypes.func
+    controller: PropTypes.object,
+    handleAddConnectionClick: PropTypes.func,
+    handleAddTorrentClick: PropTypes.func,
+    handleConnectionClick: PropTypes.func,
+    handleDropdownToggle: PropTypes.func,
+    isDropdownOpen: PropTypes.bool
   },
 
   render () {
+    const { handleConnectionClick, handleAddTorrentClick, handleAddConnectionClick, isDropdownOpen, handleDropdownToggle, connections, connectionsSelected } = this.props
+
     return (
-      <header className='header'>
-        <div className='header__title'>
-          <span>Showing <span className='header__filter'>active <i className='fa fa-sm fa-caret-down' /></span> transfers from <span className='header__filter'>rTorrent 0.9.6 <i className='fa fa-sm fa-caret-down' /></span></span>
-        </div>
-        <div className='header__search__container'>
-          <label htmlFor='search' className='header__search__label'>
-            <i className='fa fa-search' />
-          </label>
-          <input id='search' type='text' className='input__field input__field--underlined header__search' />
-        </div>
-        <nav className='nav'>
-          <ul className='nav__list'>
-            <li className='nav__item'>
-              <a href='#' className='nav__link'>
-                <i className='fa fa-fw fa-list'></i>
-              </a>
-            </li>
-            <li className='nav__item'>
-              <a href='#' className='nav__link'>
-                <i className='fa fa-fw fa-gear'></i>
-              </a>
-            </li>
-            <li className='nav__item'>
-              <a href='#' className='nav__link'>
-                <i className='fa fa-plus fa-fw'></i>
-                <i className='fa fa-caret-down nav__link__caret'></i>
-              </a>
-            </li>
+      <ReactCSSTransitionGroup
+        component='div'
+        transitionName='header-transition'
+        transitionEnter
+        transitionLeave
+        transitionEnterTimeout={200}
+        transitionLeaveTimeout={200}
+        className='header__container'>
+        {isDropdownOpen &&
+          <div className='header__dropdown'>
+            <HeaderDropdown
+              handleDropdownToggle={handleDropdownToggle}
+              handleAddTorrentClick={handleAddTorrentClick}
+              handleAddConnectionClick={handleAddConnectionClick} />
+          </div>
+        }
+        <header className='header'>
+          <h2 className='header__title' onClick={handleDropdownToggle}>
+            <span>{parse(window.location.href).hostname}</span>
+            <i className={cx('fa header__caret fa-caret-down', {
+              'header__caret--reverse': isDropdownOpen
+            })} />
+          </h2>
+          <ul className='header__connection-list'>
+            {connections && Object.keys(connections).map(conn =>
+              <li className='header__connection-item' onClick={handleConnectionClick.bind(null, conn)}>
+                <span className={cx('header__connection', {
+                  'header__connection--active': connectionsSelected === conn
+                })}>
+                  {connections[conn].prettyName}
+                </span>
+              </li>
+            )}
           </ul>
-        </nav>
-        {/* <ul className='header__tabs'>
-          {Object.keys(connections).map(conn =>
-            <HeaderTab
-              active={connectionsSelected === conn}
-              key={conn}
-              handleClick={handleConnectionClick.bind(null, conn)}
-              connectionKey={conn}
-              connection={connections[conn]}
-              showExtra />
-          )}
-        </ul> */}
-      </header>
+        </header>
+      </ReactCSSTransitionGroup>
     )
   }
 })

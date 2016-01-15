@@ -1,4 +1,5 @@
 import * as ActionTypes from 'actions'
+import { isEmpty } from 'utils'
 import { buildModal } from './ModalActions'
 import { torrentsIsSortedByDescendingSelector, torrentsSortCriteriaSelector, entitiesTorrentsSelector, torrentsItemsSelector, connectionsSelectedSelector, selectedConnectionSelector } from 'selectors'
 import AddTorrentsModal from 'components/Torrent/AddTorrentsModal'
@@ -46,14 +47,24 @@ export function setTorrentsToUpload (torrents) {
             payload: parsedTorrents
           })
 
-          dispatch(buildModal({
-            title: 'Add Torrents',
-            body: AddTorrentsModal,
-            required: false
-          }))
+          dispatch(buildTorrentsModal())
         }
       })
     })
+  }
+}
+
+export function buildTorrentsModal (onFilesDrop) {
+  return (dispatch, getState) => {
+    const state = getState()
+    if (isEmpty(state.modal)) {
+      return dispatch(buildModal({
+        title: 'Add Torrents',
+        body: AddTorrentsModal,
+        required: false,
+        onFilesDrop
+      }))
+    }
   }
 }
 

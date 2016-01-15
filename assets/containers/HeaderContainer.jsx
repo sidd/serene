@@ -9,7 +9,11 @@ const HeaderContainer = React.createClass({
     controller: PropTypes.object,
     connections: PropTypes.object,
     connectionsSelected: PropTypes.string,
-    dispatch: PropTypes.func
+    dispatch: PropTypes.func,
+    handleAddConnectionClick: PropTypes.func,
+    handleAddTorrentClick: PropTypes.func,
+    handleDropdownToggle: PropTypes.func,
+    isDropdownOpen: PropTypes.bool
   },
 
   handleConnectionClick (conn) {
@@ -17,14 +21,18 @@ const HeaderContainer = React.createClass({
   },
 
   render () {
-    const { connectionsSelected, connections } = this.props
+    const { handleAddTorrentClick, handleAddConnectionClick, handleDropdownToggle, isDropdownOpen, connectionsSelected, connections } = this.props
 
     return (
       !!connectionsSelected &&
         <Header
           connections={connections}
           connectionsSelected={connectionsSelected}
-          handleConnectionClick={this.handleConnectionClick} />
+          handleAddTorrentClick={handleAddTorrentClick}
+          handleAddConnectionClick={handleAddConnectionClick}
+          handleConnectionClick={this.handleConnectionClick}
+          handleDropdownToggle={handleDropdownToggle}
+          isDropdownOpen={isDropdownOpen} />
     )
   }
 })

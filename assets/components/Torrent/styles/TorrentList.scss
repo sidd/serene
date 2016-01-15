@@ -5,6 +5,8 @@
   $status-width: 8%;
 
   table-layout: fixed;
+  user-select: none;
+  -webkit-user-select: none;
   width: 100%;
   &__container {
     min-width: 700px;
@@ -14,25 +16,26 @@
   &__item, &__head {
     @include one-line-rules(3em);
 
-    border-bottom: 1px solid lighten($serene-light, 5%);
-
     &--active { background: $serene-lighter; }
   }
 
   &__item {
-    cursor: pointer;
+    cursor: default;
     position: relative;
 
+    &--title { width: 25%; }
     &:hover { background: $serene-lighter; }
   }
   &__head {
-    border-bottom: 1px solid $serene-light;
-
     &__item {
       cursor: pointer;
 
       &:hover { background: #fafafa; }
       &--title { width: 25%; }
+    }
+    &__sort-order {
+      left: 0.5em;
+      position: relative;
     }
   }
 

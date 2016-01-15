@@ -3,28 +3,102 @@
 
 .header {
   @include one-line-rules(3rem);
-  padding: 0 2em;
-  border-bottom: 1px solid $serene-light;
 
-  &__search {
-    &__container {
-      color: $serene-light;
+  background: $serene-primary;
+  border-bottom: 1px solid $serene-light;
+  color: #fff;
+  padding: 0 1em;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  z-index: 1;
+
+  &__title {
+    cursor: pointer;
+    float: left;
+    font-size: 1.5em;
+    font-weight: 700;
+    margin-right: 0.8em;
+  }
+  &__caret {
+    left: 0.1em;
+    position: relative;
+    transform: scale(0.6);
+    transition: 200ms all ease-in-out;
+
+    &--reverse {
+      transform: scale(0.6) rotate(180deg);
+      transition: 200ms all ease-in-out;
+    }
+  }
+  &__dropdown {
+    @include react-transition(translateY(calc(-100% - 3.5rem)), translateY(0%), 'header')
+
+    background: #fff;
+    border-bottom: 1px solid $serene-light;
+    color: $serene-darker;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    position: absolute;
+    top: 3rem;
+    white-space: nowrap;
+    width: 10%;
+    z-index: 1;
+
+    &__icon {
+      margin-right: 0.3em;
+    }
+
+    &-list {
+      line-height: 1;
+      padding: 1em 0;
+    }
+
+    &-item {
+      cursor: default;
+      padding: 0 0.7em;
+      line-height: 2;
+
+      &:hover {
+        background: lighten($serene-primary, 25%);
+        color: $serene-lighter;
+      }
+    }
+    &-separator {
+      border-top: 1px solid $serene-light;
+      margin: 0.3em 0.7em;
+    }
+  }
+  &__connection {
+    border-radius: 1.5em;
+    cursor: default;
+    font-size: 0.8em;
+    line-height: 1;
+    padding: 0.5em 1.2em;
+
+    &--active {
+      background: lighten($serene-primary, 15%);
+      font-weight: bold;
+      &:hover {
+        background: lighten($serene-primary, 10%);
+      }
+    }
+
+    &:hover:not(.header__connection--active) {
+      background: lighten($serene-primary, 5%);
+    }
+
+    &-list {
+      display: block;
       float: left;
     }
-    font-size: 0.8em;
-    letter-spacing: 0.05rem;
-    width: auto !important;
 
-    &__label {
-      margin-right: 0.5em;
+    &-item {
+      float: left;
+      margin: 0 0.2em;
     }
   }
-  &__title {
-    position: absolute;
-    left: 0;
-    right: 0;
-    text-align: center;
-  }
+
   &__filter {
     color: $serene-primary-highlighted;
   }

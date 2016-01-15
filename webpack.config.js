@@ -1,11 +1,15 @@
 var path = require('path')
 var webpack = require('webpack')
 
-var entry = [
-  './assets/index.jsx'
+var entry = ['./assets/index.jsx']
+var plugins = [
+  new webpack.DefinePlugin({
+    __DEV__: process.env.NODE_ENV !== 'production'
+  })
 ]
 
 if (process.env.NODE_ENV !== 'production') {
+  plugins.unshift(new webpack.HotModuleReplacementPlugin())
   entry = [
     'webpack-dev-server/client?http://0.0.0.0:7000',
     'webpack/hot/only-dev-server'
@@ -39,12 +43,7 @@ module.exports = {
   resolveLoader: {
     fallback: path.join(__dirname, 'node_modules')
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.DefinePlugin({
-      __DEV__: process.env.NODE_ENV !== 'production'
-    })
-  ],
+  plugins: plugins,
   node: {
     fs: 'empty',
     net: 'empty',

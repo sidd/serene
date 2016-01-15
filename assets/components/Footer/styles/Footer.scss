@@ -10,6 +10,8 @@
   color: $serene-dark;
   font-size: 0.8rem;
   position: relative;
+  user-select: none;
+  -webkit-user-select: none;
 
   &__actions {
     &-list {

@@ -21,7 +21,7 @@
     position: fixed;
     transition: 200ms all;
     width: 100%;
-    z-index: 1;
+    z-index: 10;
 
   }
 
@@ -30,7 +30,11 @@
     border-bottom: 1px solid $serene-light;
   }
 
-  &__body { min-height: 150px; }
+  &__body {
+    min-height: 150px;
+    position: relative;
+  }
+
   &__footer { padding: 0.7em; }
 
 }

@@ -72,7 +72,7 @@ const CredentialsModal = React.createClass({
               <label className='input__label'>Password</label>
             </div>
           }
-          <button type='submit' className='button credentials__submit'>
+          <button type='submit' className='button button--modal-submit credentials__submit'>
             Connect
           </button>
         </form>

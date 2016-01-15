@@ -23,26 +23,32 @@ export default React.createClass({
    * Begins listening for keydown events.
    */
   componentDidMount () {
-    document.addEventListener('keydown', this._escKeydownListener)
+    if (!this.props.modal.required) {
+      document.addEventListener('keydown', this._escKeydownListener)
+    }
   },
 
   /**
    * Terminates listening for keydown events.
    */
   componentWillUnmount () {
-    document.removeEventListener('keydown', this._escKeydownListener)
+    if (!this.props.modal.required) {
+      document.removeEventListener('keydown', this._escKeydownListener)
+    }
   },
 
   render () {
     const { unsetModal, modal } = this.props
-    const { className = '' } = modal
+    const { onFilesDrop, className = '' } = modal
 
     return (
       <div className='modal__container' onClick={() => unsetModal()}>
         <div className={'modal ' + className} onClick={ev => ev.stopPropagation()}>
           <div className='modal__title'>{modal.title}</div>
           <div className='modal__body'>
-            <modal.body unsetModal={this.props.unsetModal} />
+            <modal.body
+              unsetModal={this.props.unsetModal}
+              onFilesDrop={onFilesDrop} />
           </div>
           {!!modal.footer && <div className='modal__footer'></div>}
         </div>

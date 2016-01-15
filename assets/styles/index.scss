@@ -44,8 +44,14 @@ button, select {
   @include darken-color-on-hover($serene-primary-cta);
 
   cursor: pointer;
-  padding: 1rem;
   color: $serene-primary-cta;
+  padding: 1rem;
+
+  &:focus {
+    background: $serene-lighter;
+  }
+  &--modal-submit {
+  }
 }
 
 .input {
@@ -55,6 +61,7 @@ button, select {
   border-bottom: 1px solid $serene-light;
   font-size: 0.8em;
   overflow: hidden;
+  padding: 0 2em;
 
   &__label {
     display: block;
@@ -65,6 +72,7 @@ button, select {
     border: 0;
     line-height: initial;
     width: 100% - $label-width;
+
     &--underlined {
       border-bottom: 1px solid $serene-light;
     }

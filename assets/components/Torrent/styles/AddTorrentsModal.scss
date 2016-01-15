@@ -3,9 +3,11 @@
 .parsed-torrent {
   &__container {
     height: 70vh;
-    margin: 1em auto;
+    margin: 1em auto 0;
     overflow: scroll;
     width: 90%;
+    user-select: none;
+    -webkit-user-select: none;
   }
 
   &__submit { width: 100%; }
@@ -71,4 +73,27 @@
       padding-right: 0.4em;
     }
   }
+  &__uploader {
+    &__label {
+      color: $serene-primary-cta;
+      display: block;
+      position: absolute;
+      left: 0; right: 0; top: 0; bottom: 0;
+      text-align: center;
+      &:hover {
+        .parsed-torrent__uploader__text {
+          background: $serene-lighter;
+        }
+      }
+    }
+    &__text {
+      position: absolute;;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border: 1px solid $serene-light;
+      padding: 1em;
+    }
+  }
 }
+
+#parsed-torrent__uploader { display: none; }

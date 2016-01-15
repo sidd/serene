@@ -7,7 +7,7 @@
     @include react-transition(translateY(0%), translateY(-100%), 'app', 'transform', '.torrent-info');
     @include react-transition(0, 0, 'app', 'height');
 
-    box-shadow: 0 0 0.5em 1px rgba(0, 0, 0, 0.1);
+    border-top: 1px solid $serene-light;
     letter-spacing: initial;
   }
 
