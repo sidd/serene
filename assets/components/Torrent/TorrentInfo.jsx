@@ -56,11 +56,13 @@ export default React.createClass({
             <TorrentInfoItem
               label='Path'
               value={path} />
-            <TorrentInfoItem
-              label='Downloads'
-              value={!!downloadUrls && downloadUrls.map(link =>
-                <a className='torrent-info__download__link' download={link.filename} href={link.url} target='_blank'>{link.filename}</a>
-              )} />
+            {!!downloadUrls && downloadUrls.length &&
+              <TorrentInfoItem
+                label='Downloads'
+                value={downloadUrls.map(link =>
+                  <a className='torrent-info__download__link' download={link.filename} href={link.url} target='_blank'>{link.filename}</a>
+                )} />
+            }
             <TorrentInfoItemContainer>
               <TorrentInfoItem
                 label='Downloaded'
@@ -71,9 +73,11 @@ export default React.createClass({
                 className='torrent-info__data--half'
                 value={bytes(+bytes_uploaded)} />
             </TorrentInfoItemContainer>
-            {trackers && <TorrentInfoItem
-              label='Tracker'
-              value={trackers[0].url} />}
+            {!!trackers && !!trackers.length &&
+              <TorrentInfoItem
+                label='Tracker'
+                value={trackers[0].url} />
+            }
           </dl>
         </div>
       </div>

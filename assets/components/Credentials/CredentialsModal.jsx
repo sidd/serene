@@ -10,7 +10,8 @@ const CredentialsModal = React.createClass({
   propTypes: {
     dispatch: PropTypes.func.isRequired,
     unsetModal: PropTypes.func.isRequired,
-    providers: PropTypes.object.isRequired
+    providers: PropTypes.object.isRequired,
+    errors: PropTypes.object
   },
 
   mixins: [SimpleFormMixin],
@@ -34,17 +35,25 @@ const CredentialsModal = React.createClass({
    */
   handleSubmit (ev) {
     ev.preventDefault()
-    this.props.unsetModal(true)
     this.simpleFormMixinHandleSubmit(createConnection)
   },
 
   render () {
-    const { providers } = this.props
+    const { providers, errors } = this.props
     const { provider = '' } = this.state.form
     var options = (providers[provider] && providers[provider].options) ? providers[provider].options : {}
 
+    // TODO: move logic to a selector
+    var err
+    if (errors.connections) {
+      err = errors.connections
+    }
+
     return (
       <div className='credentials__container'>
+        {!!err &&
+          <span className='error credentials__error'>Unable to connect.</span>
+        }
         <form className='credentials' onSubmit={this.handleSubmit}>
           <div className='input'>
             <label className='input__label'>Provider</label>

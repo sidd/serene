@@ -1,3 +1,4 @@
+/* global __GITHUB_URL__ */
 import React, { PropTypes } from 'react'
 import HeaderDropdownItem from './HeaderDropdownItem'
 
@@ -60,7 +61,7 @@ export default React.createClass({
 
         <HeaderDropdownItem
           icon='fa-bug'>
-          Report a Bug
+          <a href={__GITHUB_URL__}>Report a Bug</a>
         </HeaderDropdownItem>
         <HeaderDropdownItem
           icon='fa-power-off'>

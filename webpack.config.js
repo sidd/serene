@@ -1,10 +1,12 @@
 var path = require('path')
 var webpack = require('webpack')
+var pkg = require('./package.json')
 
 var entry = ['./assets/index.jsx']
 var plugins = [
   new webpack.DefinePlugin({
-    __DEV__: process.env.NODE_ENV !== 'production'
+    __DEV__: process.env.NODE_ENV !== 'production',
+    __GITHUB_URL__: JSON.stringify(pkg.repository)
   })
 ]
 var jsLoader = { test: /\.jsx|\.js$/, loader: 'react-hot!babel', exclude: /node_modules/ }

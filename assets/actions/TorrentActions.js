@@ -114,6 +114,7 @@ export function getTorrents (isRepeating, connection) {
     }
     dispatch(selectedConnectionSelector(state).getTorrents()).payload.promise
       .then(() => dispatch(sortTorrents()))
+      .then(() => dispatch(filterTorrents()))
       .then(() => (isRepeating && setTimeout(() => getTorrents(true, connection)(dispatch, getState), 5000)))
   }
 }
@@ -159,5 +160,30 @@ export function sortTorrents (column, order) {
 
       return item
     }
+  }
+}
+
+export function filterTorrents (value, field = 'status') {
+  return (dispatch, getState) => {
+    const state = getState()
+
+    const torrents = entitiesTorrentsSelector(state)
+    const torrentsItems = torrentsItemsSelector(state)
+
+    console.log(torrents)
+
+    var payload = { items: torrentsItems }
+    if (value) {
+      payload = {
+        items: torrentsItems.filter(item => torrents[item][field] === value),
+        filteredByField: field,
+        filteredByValue: value
+      }
+    }
+
+    return dispatch({
+      type: ActionTypes.TORRENTS_FILTER_VISIBLE,
+      payload
+    })
   }
 }

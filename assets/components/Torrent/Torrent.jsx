@@ -55,7 +55,7 @@ export default React.createClass({
             status={status} />
           <div className='torrent-list__meta'>
             <span className='torrent-list__meta__title'>{name}</span>
-            {torrent.trackers && torrent.trackers.length &&
+            {!!torrent.trackers && !!torrent.trackers.length &&
               <ul className='torrent-list__meta__list'>
                 <li className='torrent-list__meta__item'>{infohash.substring(0, 6).toLowerCase()}</li>
                 <li className='torrent-list__meta__item'>{parse(torrent.trackers[0].url).hostname}</li>

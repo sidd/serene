@@ -1,6 +1,6 @@
 import * as ActionTypes from 'actions'
 import CredentialsModal from 'components/Credentials/CredentialsModal'
-import { buildModal } from './ModalActions'
+import { buildModal, unsetModal } from './ModalActions'
 import { getTorrents } from './TorrentActions'
 import { parse } from 'url'
 
@@ -10,7 +10,7 @@ import { parse } from 'url'
  * @param {Object} data Form data containing connection info.
  * @see   assets/components/Credentials/CredentialsModal
  */
-export function createConnection (data) {
+export function createConnection (data, cb) {
   return (dispatch, getState) => {
     const state = getState()
     var connectionId
@@ -28,14 +28,32 @@ export function createConnection (data) {
       connectionId = connectionId.slice(0, -1)
     }
 
-    dispatch({
-      type: ActionTypes.CONNECTIONS_CREATE,
-      payload: {
-        [connectionId]: new state.providers[data.provider](data)
-      }
-    })
+    const connection = new state.providers[data.provider](data)
 
-    dispatch(selectConnection(connectionId))
+    const testFn = connection.testConnection
+      ? connection.testConnection.bind(connection, connectionId)
+      : () => ({
+        type: 'PROVIDER_CONNECTION_TEST_FULFILLED',
+        payload: {
+          promise: Promise.resolve(true)
+        }
+      })
+
+    dispatch(testFn).payload.promise
+      .then(res => {
+        dispatch({
+          type: ActionTypes.CONNECTIONS_CREATE,
+          payload: {
+            [connectionId]: connection
+          }
+        })
+        dispatch(selectConnection(connectionId))
+      }, err => {
+        dispatch({
+          type: ActionTypes.CONNECTION_TEST_REJECTED,
+          payload: err
+        })
+      })
   }
 }
 
@@ -57,6 +75,7 @@ export function selectConnection (conn) {
       type: ActionTypes.CONNECTIONS_SELECT,
       payload: conn
     })
+    dispatch(unsetModal())
     dispatch(getTorrents(true, conn))
   }
 }

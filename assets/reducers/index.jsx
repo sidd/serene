@@ -1,6 +1,6 @@
 import deepAssign from 'deep-assign'
 import { combineReducers } from 'redux'
-import { selectedConnection, connections } from './Connection'
+import { selectedConnection, connections, connectionsErrors } from './Connection'
 import { modal } from './Modal'
 import { normalize } from 'normalizr'
 import { Schemas } from 'schemas'
@@ -39,11 +39,16 @@ function entities (state = {}, action) {
   }
 }
 
+const errors = combineReducers({
+  connections: connectionsErrors
+})
+
 /**
  * Composes & keys reducers onto one beautiful state.
  */
 export default combineReducers({
   entities,
+  errors,
   selectedTorrent, torrents, torrentsToUpload,
   selectedConnection, connections,
   providers,
