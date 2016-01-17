@@ -22,13 +22,16 @@
   }
 
   &__item {
-    cursor: pointer;
+    cursor: default;
     padding: 0.5em 0.4em;
     &--active {
       background: rgba(128, 174, 255, 0.2);
       border-radius: 5px;
       color: $serene-primary-cta;
       margin-right: 1em;
+    }
+    &:hover {
+      background: $serene-light;
     }
   }
 

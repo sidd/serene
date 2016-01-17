@@ -24,8 +24,7 @@ export default React.createClass({
         'sidebar__item--active': active
       })}
       onClick={handleClick}>
-      <a
-        className='sidebar__link'>
+      <a className='sidebar__link'>
         <i className={cx('fa fa-fw sidebar__icon', icon, {
           'sidebar__icon--active': active
         })} />

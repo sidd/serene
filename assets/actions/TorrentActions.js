@@ -74,11 +74,12 @@ export function unsetTorrent () {
   }
 }
 
-export function addTorrent (torrents, cb) {
-  torrents = torrents.map(torrent => torrent.originalFile || torrent)
+export function addTorrents (torrents, cb) {
+  torrents = torrents.map(torrent => parseTorrent.toTorrentFile(torrent))
   return (dispatch, getState) => {
     const state = getState()
-    dispatch(selectedConnectionSelector(state).addTorrent(torrents)).payload.promise
+    console.log(torrents)
+    dispatch(selectedConnectionSelector(state).addTorrents(torrents)).payload.promise
       .then(() => cb && dispatch(cb()))
       .then(
         () => dispatch(selectedConnectionSelector(state).getTorrents())

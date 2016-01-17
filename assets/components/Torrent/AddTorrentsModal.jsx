@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import { addTorrent, unsetTorrentsToUpload } from 'actions/TorrentActions'
+import { addTorrents, unsetTorrentsToUpload } from 'actions/TorrentActions'
 import { connect } from 'react-redux'
 import { isEmpty } from 'utils'
 import { addTorrentsModalSelector } from 'selectors'
@@ -19,7 +19,7 @@ const AddTorrentsModal = React.createClass({
   handleSubmit (ev) {
     ev.preventDefault()
     const { unsetModal, dispatch, torrents } = this.props
-    dispatch(addTorrent(torrents, () => {
+    dispatch(addTorrents(torrents, () => {
       unsetModal(true)
       return unsetTorrentsToUpload()
     }))
