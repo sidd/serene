@@ -16,9 +16,17 @@ export function torrents (state = initialState, action) {
     case ActionTypes.TORRENTS_SORT_VISIBLE:
       return Object.assign({}, state, {
         isSorted: true,
+        isFiltered: false,
         isSortedByDescending: action.payload.isSortedByDescending,
         sortedBy: action.payload.sortedBy,
-        items: action.payload.items
+        itemsSorted: action.payload.items
+      })
+    case ActionTypes.TORRENTS_FILTER_VISIBLE:
+      return Object.assign({}, state, {
+        isFiltered: true,
+        filteredByField: action.payload.filteredByField,
+        filteredByValue: action.payload.filteredByValue,
+        itemsFiltered: action.payload.items
       })
     default: return state
   }

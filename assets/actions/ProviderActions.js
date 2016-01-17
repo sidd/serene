@@ -10,7 +10,7 @@ export function getProviders () {
     dispatch({
       type: ActionTypes.PROVIDERS_INITIALIZE,
       payload: providers.reduce((obj, cur) => {
-        obj[cur.nameIdentifier] = cur
+        obj[cur.config.id] = cur
         return obj
       }, {})
     })

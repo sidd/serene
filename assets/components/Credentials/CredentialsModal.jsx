@@ -41,7 +41,7 @@ const CredentialsModal = React.createClass({
   render () {
     const { providers, errors } = this.props
     const { provider = '' } = this.state.form
-    var options = (providers[provider] && providers[provider].options) ? providers[provider].options : {}
+    var options = (providers[provider] && providers[provider].config.options) ? providers[provider].config.options : []
 
     // TODO: move logic to a selector
     var err
@@ -59,23 +59,23 @@ const CredentialsModal = React.createClass({
             <label className='input__label'>Provider</label>
             <select className='input__field input__field--select' name='provider' onChange={this.simpleFormMixinHandleChange}>
               {Object.keys(providers).map(provider =>
-                <option key={provider} value={provider}>{providers[provider].prettyName}</option>
+                <option key={provider} value={provider}>{providers[provider].config.name}</option>
               )}
             </select>
           </div>
-          {options.host &&
+          {options.indexOf('host') > -1 &&
             <div className='input'>
               <input className='input__field input__field--text' type='text' name='host' placeholder='ex. http://127.0.0.1/RPC2' onChange={this.simpleFormMixinHandleChange} />
               <label className='input__label'>Host</label>
             </div>
           }
-          {options.username &&
+          {options.indexOf('username') > -1 &&
             <div className='input'>
               <input className='input__field input__field--text' type='text' name='username' onChange={this.simpleFormMixinHandleChange} />
               <label className='input__label'>Username</label>
             </div>
           }
-          {options.password &&
+          {options.indexOf('password') > -1 &&
             <div className='input'>
               <input className='input__field input__field--text' type='password' name='password' onChange={this.simpleFormMixinHandleChange} />
               <label className='input__label'>Password</label>

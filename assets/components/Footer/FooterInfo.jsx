@@ -37,7 +37,7 @@ export default React.createClass({
           </li>
         }
         <li className='footer__info-item'>
-          <span><i className='fa fa-fw fa-database'></i> {controller.prettyName}</span>
+          <span><i className='fa fa-fw fa-database'></i> {controller.config.name}</span>
         </li>
         <li className='footer__info-item'>
           <span>

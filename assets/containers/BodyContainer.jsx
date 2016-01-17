@@ -6,6 +6,7 @@ import { sortTorrents } from 'actions/TorrentActions'
 import { bodySelector } from 'selectors'
 import { connect } from 'react-redux'
 import { DropTarget } from 'react-dnd'
+import { filterTorrents } from 'actions/TorrentActions'
 import { findDOMNode } from 'react-dom'
 import { NativeTypes } from 'react-dnd-html5-backend'
 import Sidebar from 'components/Sidebar/Sidebar'
@@ -41,7 +42,9 @@ const BodyContainer = React.createClass({
     unsetTorrent: PropTypes.func,
     torrentsIsSorted: PropTypes.bool,
     torrentsIsSortedByDescending: PropTypes.bool,
-    torrentsSortedBy: PropTypes.string
+    torrentsSortedBy: PropTypes.string,
+    torrentsIsFiltered: PropTypes.bool,
+    torrentsFilteredBy: PropTypes.string
   },
 
   handleTorrentListHeaderClick (ev) {
@@ -49,8 +52,12 @@ const BodyContainer = React.createClass({
     this.props.dispatch(sortTorrents(ev.currentTarget.getAttribute('name')))
   },
 
+  handleFilterClick (value, field) {
+    this.props.dispatch(filterTorrents(value, field))
+  },
+
   render () {
-    const { isDropdownOpen, isOver, connectDropTarget, torrentsIsSortedByDescending, torrentsSortedBy, torrentsIsSorted, setTorrent, unsetTorrent, dispatch, selectedTorrent, torrents } = this.props
+    const { torrentsIsFiltered, torrentsFilteredBy, isDropdownOpen, isOver, connectDropTarget, torrentsIsSortedByDescending, torrentsSortedBy, torrentsIsSorted, setTorrent, unsetTorrent, dispatch, selectedTorrent, torrents } = this.props
 
     return (
       <ReactCSSTransitionGroup
@@ -64,7 +71,11 @@ const BodyContainer = React.createClass({
             transitionLeave
             transitionLeaveTimeout={200}
             ref={instance => connectDropTarget(findDOMNode(instance))}>
-        <Sidebar isDropdownOpen={isDropdownOpen} />
+        <Sidebar
+          handleClick={this.handleFilterClick}
+          isFiltered={torrentsIsFiltered}
+          filteredBy={torrentsFilteredBy}
+          isDropdownOpen={isDropdownOpen} />
         <TorrentList
           handleTorrentListHeaderClick={this.handleTorrentListHeaderClick}
           selectedTorrent={selectedTorrent}

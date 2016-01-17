@@ -18,19 +18,7 @@ export default React.createClass({
 
   render () {
     const { unsetTorrent, selectedTorrent, setTorrent, torrent } = this.props
-    const { infohash, name, is_hash_checking, bytes_downloaded, bytes_remaining, is_open, is_active, download_speed, upload_speed, bytes_total, seeders, peers, ratio } = torrent
-
-    // TODO: decouple from rtorrent :)
-    var status
-    switch (is_active) {
-      case '0':
-        status = +is_open ? 'paused' : 'stopped'
-        break
-      case '1':
-        status = !+bytes_remaining ? 'uploading' : 'downloading'
-        break
-    }
-    status = (is_hash_checking === '1') ? 'checking' : status
+    const { status, infohash, name, bytes_downloaded, bytes_remaining, download_speed, upload_speed, bytes_total, num_seeders, num_peers, ratio } = torrent
 
     var eta
     if (download_speed !== '0') {
@@ -71,8 +59,8 @@ export default React.createClass({
         <td className='torrent-list__data'>{bytes(+bytes_total)}</td>
         <td className='torrent-list__data'>{bytes(+download_speed)}/s</td>
         <td className='torrent-list__data'>{bytes(+upload_speed)}/s</td>
-        <td className='torrent-list__data'>{seeders}</td>
-        <td className='torrent-list__data'>{peers}</td>
+        <td className='torrent-list__data'>{num_seeders}</td>
+        <td className='torrent-list__data'>{num_peers}</td>
         <td className='torrent-list__data'>{+bytes_remaining ? eta || '-' : <i className='fa fa-fw fa-check' />}</td>
         <td className='torrent-list__data'>{+ratio / 1000}</td>
       </tr>

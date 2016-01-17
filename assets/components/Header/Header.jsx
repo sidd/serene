@@ -51,7 +51,7 @@ export default React.createClass({
                 <span className={cx('header__connection', {
                   'header__connection--active': connectionsSelected === conn
                 })}>
-                  {connections[conn].prettyName}
+                  {connections[conn].config.name}
                 </span>
               </li>
             )}

@@ -39,7 +39,7 @@ export function createConnection (data, cb) {
         }
       })
 
-    dispatch(testFn).payload.promise
+    dispatch(testFn()).payload.promise
       .then(res => {
         dispatch({
           type: ActionTypes.CONNECTIONS_CREATE,

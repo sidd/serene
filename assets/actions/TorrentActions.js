@@ -1,7 +1,7 @@
 import * as ActionTypes from 'actions'
 import { isEmpty } from 'utils'
 import { buildModal } from './ModalActions'
-import { torrentsIsSortedByDescendingSelector, torrentsSortCriteriaSelector, entitiesTorrentsSelector, torrentsItemsSelector, connectionsSelectedSelector, selectedConnectionSelector } from 'selectors'
+import { torrentsIsSortedByDescendingSelector, torrentsSortCriteriaSelector, torrentsFilterCriteriaSelector, torrentsFilterFieldSelector, entitiesTorrentsSelector, torrentsItemsSelector, torrentsItemsSortedSelector, connectionsSelectedSelector, selectedConnectionSelector } from 'selectors'
 import AddTorrentsModal from 'components/Torrent/AddTorrentsModal'
 import parseTorrent from 'parse-torrent'
 
@@ -113,6 +113,7 @@ export function getTorrents (isRepeating, connection) {
       return
     }
     dispatch(selectedConnectionSelector(state).getTorrents()).payload.promise
+
       .then(() => dispatch(sortTorrents()))
       .then(() => dispatch(filterTorrents()))
       .then(() => (isRepeating && setTimeout(() => getTorrents(true, connection)(dispatch, getState), 5000)))
@@ -163,19 +164,24 @@ export function sortTorrents (column, order) {
   }
 }
 
-export function filterTorrents (value, field = 'status') {
+export function filterTorrents (value, field) {
   return (dispatch, getState) => {
     const state = getState()
 
     const torrents = entitiesTorrentsSelector(state)
-    const torrentsItems = torrentsItemsSelector(state)
+    const torrentsItems = state.torrents.isSorted
+      ? torrentsItemsSortedSelector(state)
+      : torrentsItemsSelector(state)
 
-    console.log(torrents)
+    if (value !== null) {
+      value = value || torrentsFilterCriteriaSelector(state)
+    }
+    field = field || torrentsFilterFieldSelector(state)
 
     var payload = { items: torrentsItems }
     if (value) {
       payload = {
-        items: torrentsItems.filter(item => torrents[item][field] === value),
+        items: torrentsItems.filter(item => value ? torrents[item][field] === value : true),
         filteredByField: field,
         filteredByValue: value
       }

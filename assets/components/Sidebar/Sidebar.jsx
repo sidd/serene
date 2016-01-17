@@ -6,11 +6,15 @@ require('./styles/Sidebar')
 
 export default React.createClass({
   propTypes: {
-    isDropdownOpen: PropTypes.bool
+    handleClick: PropTypes.func.isRequired,
+    isDropdownOpen: PropTypes.bool,
+    isFiltered: PropTypes.bool,
+    filteredBy: PropTypes.string
   },
 
   render () {
-    const { isDropdownOpen } = this.props
+    const { filteredBy, handleClick, isDropdownOpen } = this.props
+
     return (
       <section className={cx('sidebar app__component app__component--sidebar', {
         'sidebar--dropdown-open': isDropdownOpen
@@ -19,15 +23,20 @@ export default React.createClass({
         <ul className='sidebar__list'>
           <SidebarItem
             icon='fa-bullseye'
-            active>
+            active={!filteredBy}
+            handleClick={() => handleClick(null, 'status')}>
             <span>All Transfers</span>
           </SidebarItem>
           <SidebarItem
-            icon='fa-arrow-down'>
+            icon='fa-arrow-down'
+            active={filteredBy === 'downloading'}
+            handleClick={() => handleClick('downloading', 'status')}>
             <span>Downloading</span>
           </SidebarItem>
           <SidebarItem
-            icon='fa-arrow-up'>
+            icon='fa-arrow-up'
+            active={filteredBy === 'uploading'}
+            handleClick={() => handleClick('uploading', 'status')}>
             <span>Uploading</span>
           </SidebarItem>
           <SidebarItem
