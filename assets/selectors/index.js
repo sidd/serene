@@ -3,7 +3,7 @@ import { createSelector, createStructuredSelector } from 'reselect'
 // const providersSelector = state => state.providers
 // const providersSelectedSelector = state => state.selectedProvider
 
-const connectionsSelector = state => state.connections
+export const connectionsSelector = state => state.connections
 export const connectionsSelectedSelector = state => state.selectedConnection
 
 const entitiesStatsSelector = state => state.entities.stats

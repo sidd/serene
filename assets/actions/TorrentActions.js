@@ -28,6 +28,7 @@ export function unsetTorrentsToUpload () {
 }
 
 export function setTorrentsToUpload (torrents) {
+  console.log('green')
   return dispatch => {
     var numTorrents = torrents.length
     var parsedTorrents = []
@@ -78,7 +79,6 @@ export function addTorrents (torrents, cb) {
   torrents = torrents.map(torrent => parseTorrent.toTorrentFile(torrent))
   return (dispatch, getState) => {
     const state = getState()
-    console.log(torrents)
     dispatch(selectedConnectionSelector(state).addTorrents(torrents)).payload.promise
       .then(() => cb && dispatch(cb()))
       .then(

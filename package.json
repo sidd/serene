@@ -3,7 +3,7 @@
   "version": "0.0.8",
   "description": "(WIP) minimal & modular front-end for bittorrent + webtorrent daemons",
   "scripts": {
-    "start": "webpack-dev-server -d",
+    "start": "webpack-dev-server --output-pathinfo --devtool eval",
     "test": "echo \"Error: no test specified\" && exit 1",
     "provider:add": "npm install -g --prefix ./plugins",
     "provider:install": "npm run provider:add",

@@ -1,15 +1,13 @@
+/* global __providers__ */
+import store from 'store'
 import * as ActionTypes from 'actions'
+import { createConnection } from 'actions/ConnectionActions'
 
 export function getProviders () {
   return dispatch => {
-    var req = require
-      .context('lib/node_modules', true, /^((?![\\/]node_modules|vendor|test[\\/]).)*SerenePlugin\.js$/)
-    var keys = req.keys()
-    var providers = keys.map(module => req(module))
-
     dispatch({
       type: ActionTypes.PROVIDERS_INITIALIZE,
-      payload: providers.reduce((obj, cur) => {
+      payload: __providers__.reduce((obj, cur) => {
         obj[cur.config.id] = cur
         return obj
       }, {})
@@ -23,4 +21,10 @@ export function setProvider (active) {
     type: 'PROVIDERS_SET',
     payload: active
   }
+}
+
+/* eslint-disable no-unused-vars */
+function __hotUpdateReceived__ (id) {
+/* eslint-disable no-unused-vars */
+  store.dispatch(createConnection(id))
 }

@@ -61,7 +61,7 @@ export default React.createClass({
 
         <HeaderDropdownItem
           icon='fa-bug'>
-          <a href={__GITHUB_URL__}>Report a Bug</a>
+          <a href={__GITHUB_URL__} target='_blank'>Report a Bug</a>
         </HeaderDropdownItem>
         <HeaderDropdownItem
           icon='fa-power-off'>

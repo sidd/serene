@@ -1,8 +1,11 @@
+/* eslint-disable new-cap */
+
 import * as ActionTypes from 'actions'
 import CredentialsModal from 'components/Credentials/CredentialsModal'
 import { buildModal, unsetModal } from './ModalActions'
 import { getTorrents } from './TorrentActions'
 import { parse } from 'url'
+import { connectionsSelectedSelector, connectionsSelector } from 'selectors'
 
 /**
  * Uses `data.provider` to build a connection.
@@ -13,47 +16,64 @@ import { parse } from 'url'
 export function createConnection (data, cb) {
   return (dispatch, getState) => {
     const state = getState()
-    var connectionId
+    var connectionId, connection
 
-    if (data.host) {
-      const host = parse(data.host)
-      connectionId = host.href
-    } else {
-      connectionId = data.provider
-    }
+    // HMR goodness
+    if (typeof data === 'function') {
+      const currentConnections = connectionsSelector(state)
 
-    // removes slashes from end of str when generating connectionId
-    // has no effect on the actual host connected to
-    while (/\/$/.test(connectionId)) {
-      connectionId = connectionId.slice(0, -1)
-    }
-
-    const connection = new state.providers[data.provider](data)
-
-    const testFn = connection.testConnection
-      ? connection.testConnection.bind(connection, connectionId)
-      : () => ({
-        type: 'PROVIDER_CONNECTION_TEST_FULFILLED',
-        payload: {
-          promise: Promise.resolve(true)
+      Object.keys(currentConnections).forEach(conn => {
+        if (currentConnections[conn].config.id === data.config.id) {
+          dispatch({
+            type: ActionTypes.CONNECTIONS_CREATE,
+            payload: {
+              [conn]: new data(currentConnections[conn].opts)
+            }
+          })
         }
       })
 
-    dispatch(testFn()).payload.promise
-      .then(res => {
-        dispatch({
-          type: ActionTypes.CONNECTIONS_CREATE,
+      dispatch(selectConnection(connectionsSelectedSelector(state), false))
+    } else if (data) {
+      if (data.host) {
+        const host = parse(data.host)
+        connectionId = host.href
+      } else {
+        connectionId = data.provider
+      }
+
+      // removes slashes from end of str when generating connectionId
+      // has no effect on the actual host connected to
+      while (/\/$/.test(connectionId)) {
+        connectionId = connectionId.slice(0, -1)
+      }
+      connection = new state.providers[data.provider](data)
+
+      const testFn = connection.testConnection
+        ? connection.testConnection.bind(connection, connectionId)
+        : () => ({
+          type: 'PROVIDER_CONNECTION_TEST_FULFILLED',
           payload: {
-            [connectionId]: connection
+            promise: Promise.resolve(true)
           }
         })
-        dispatch(selectConnection(connectionId))
-      }, err => {
-        dispatch({
-          type: ActionTypes.CONNECTION_TEST_REJECTED,
-          payload: err
+
+      dispatch(testFn()).payload.promise
+        .then(res => {
+          dispatch({
+            type: ActionTypes.CONNECTIONS_CREATE,
+            payload: {
+              [connectionId]: connection
+            }
+          })
+          dispatch(selectConnection(connectionId))
+        }, err => {
+          dispatch({
+            type: ActionTypes.CONNECTION_TEST_REJECTED,
+            payload: err
+          })
         })
-      })
+    }
   }
 }
 
@@ -69,13 +89,13 @@ export function promptConnection (isRequired) {
   })
 }
 
-export function selectConnection (conn) {
+export function selectConnection (conn, isRepeating = true) {
   return dispatch => {
     dispatch({
       type: ActionTypes.CONNECTIONS_SELECT,
       payload: conn
     })
     dispatch(unsetModal())
-    dispatch(getTorrents(true, conn))
+    dispatch(getTorrents(isRepeating, conn))
   }
 }

@@ -4,6 +4,10 @@ import store from 'store'
 import { Provider } from 'react-redux'
 import { render } from 'react-dom'
 
+if (module.hot) {
+  module.hot.accept()
+}
+
 require('styles')
 
 /**
